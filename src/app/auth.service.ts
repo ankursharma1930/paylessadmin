@@ -41,7 +41,7 @@ export class AuthService {
   signout() {
     localStorage.removeItem("token");
     this.isAuthenticated.next(false);
-    window.location.href = "/";
+    window.location.href = "/login";
   }
   //Check user Token 
   checkToken(){

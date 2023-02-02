@@ -20,10 +20,12 @@ import { HeaderComponent } from './include/header/header.component';
 import { FooterComponent } from './include/footer/footer.component';
 import { SidebarComponent } from './include/sidebar/sidebar.component';
 import { TestComponent } from './include/test/test.component';
+import { UsersManagementComponent } from './pages/users-management/users-management.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent},
+  {path: 'usermanage', component:UsersManagementComponent},
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotfoundComponent}
 ]
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    TestComponent
+    TestComponent,
+    UsersManagementComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
