@@ -45,6 +45,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
