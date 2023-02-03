@@ -1,0 +1,8 @@
+.table-borderless.datatable img{
+    width: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+table.dataTable {
+    padding-top: 15px;
+}

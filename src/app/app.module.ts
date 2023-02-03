@@ -21,6 +21,7 @@ import { FooterComponent } from './include/footer/footer.component';
 import { SidebarComponent } from './include/sidebar/sidebar.component';
 import { TestComponent } from './include/test/test.component';
 import { UsersManagementComponent } from './pages/users-management/users-management.component';
+import { DataTablesModule } from 'angular-datatables';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     GraphQLModule,
     HttpClientModule,
     FormsModule,
+    DataTablesModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
