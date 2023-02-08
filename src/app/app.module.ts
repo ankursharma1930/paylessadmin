@@ -22,6 +22,7 @@ import { SidebarComponent } from './include/sidebar/sidebar.component';
 import { TestComponent } from './include/test/test.component';
 import { UsersManagementComponent } from './pages/users-management/users-management.component';
 import { DataTablesModule } from 'angular-datatables';
+import { TestauthComponent } from './pages/testauth/testauth.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     FooterComponent,
     SidebarComponent,
     TestComponent,
-    UsersManagementComponent
+    UsersManagementComponent,
+    TestauthComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
@@ -56,20 +58,7 @@ const appRoutes: Routes = [
       {enableTracing: true}
     )
   ],
-  providers: [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory(httpLink: HttpLink) {
-        return {
-          cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: 'http://127.0.0.1:8000/graphql'
-          })
-        }
-      },
-      deps: [HttpLink]
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

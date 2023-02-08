@@ -3,33 +3,39 @@ import { BehaviorSubject } from 'rxjs';
 import { Apollo, gql} from 'apollo-angular';
 
 const login = gql`
-mutation login($email: String!, $password: String!) {
-  login(email: $email, password: $password) 
+mutation login($email: String!, $password: String!, $device: String!) {
+  login(email: $email, password: $password, device: $device) 
 }
 `;
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  user: any[] | undefined;
+  loading = true;
+  error:any;
+
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(private apollo: Apollo) {
     if (localStorage.getItem("token")) this.isAuthenticated.next(true);
     else this.isAuthenticated.next(false);
   }
   
-  login(email: string, password: string) {
+  login(email: string, password: string, device: string) {
     
     this.apollo
       .mutate({
         mutation: login,
-        variables: { email, password }
+        variables: { email, password, device }
       })
       .subscribe((result: any) => {
-        //console.log(result.data?.login);
+        
         if(result.data?.login){
           localStorage.setItem("token", result.data?.login);
           this.isAuthenticated.next(true);
           window.location.href = "/dashboard";
+          this.getMe();
         }
       },
         error => {
@@ -49,4 +55,27 @@ export class AuthService {
       this.signout();
     }
   }
+
+  getMe(){
+    this.apollo
+      .watchQuery({
+        query: gql`
+          {
+            me{
+              name
+              email
+              access
+              role
+            }
+          }
+        `
+      })
+      .valueChanges.subscribe((result: any) => {
+        this.user = result.data?.me
+        localStorage.setItem("data", JSON.stringify(this.user))
+        this.loading = result.loading
+        this.error = result.error
+      })
+  }
+
 }

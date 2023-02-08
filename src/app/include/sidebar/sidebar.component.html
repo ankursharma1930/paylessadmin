@@ -45,7 +45,7 @@
         </a>
       </li><!-- End Icons Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="userRole == 1">
         <a class="nav-link collapsed" href="/usermanage">
           <i class="bi bi-person"></i>
           <span>User Management</span>

@@ -9,11 +9,12 @@ import { AuthService } from 'src/app/auth.service';
 export class LoginComponent {
   email!: string;
   password!: string;
+  device: string = "web";
 
   constructor(private authService: AuthService){}
 
   onSubmit(){
-    console.log(this.email);
-    this.authService.login(this.email, this.password);
+    
+    this.authService.login(this.email, this.password, this.device);
   }
 }
