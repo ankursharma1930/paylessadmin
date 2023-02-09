@@ -24,7 +24,7 @@
           <div class="card-body">
             <h5 class="card-title"><button type="button" class="btn btn-success">Add User <i class="bi bi-plus-circle"></i></button></h5>
 
-            <table datatable  class="table table-borderless datatable">
+            <table datatable [dtOptions]="dtOptions"  class="table table-borderless datatable">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -36,32 +36,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row"><a href="#">#2457</a></th>
-                  <td><img src="assets/img/product-2.jpg" alt="">ankur</td>
-                  <td>At praesentium minu</td>
+                <tr *ngFor="let user of users">
+                  <th scope="row"><a href="#">{{user.id}}</a></th>
+                  <td><img src="assets/img/product-2.jpg" alt="">{{user.name}}</td>
+                  <td>{{user.role}}</td>
                   <td>$64</td>
-                  <td><span class="badge bg-success">Approved</span></td>
-                  <td><span class="badge bg-success">Approved</span></td>
-                </tr>
-                <tr>
-                  <th scope="row"><a href="#">#2457</a></th>
-                  <td><img src="assets/img/product-2.jpg" alt="">Brandon Jacob</td>
-                  <td>At praesentium minu</td>
-                  <td>$64</td>
-                  <td><span class="badge bg-success">Approved</span></td>
-                  <td><span class="badge bg-success">Approved</span></td>
-                </tr>
-                <tr>
-                  <th scope="row"><a href="#">#2457</a></th>
-                  <td><img src="assets/img/product-2.jpg" alt="">Brandon Jacob</td>
-                  <td>At praesentium minu</td>
-                  <td>$64</td>
-                  <td><span class="badge bg-success">Approved</span></td>
+                  <td><span class="badge bg-success">{{user.status}}</span></td>
                   <td><span class="badge bg-success">Approved</span></td>
                 </tr>
                 
-               
                 
               </tbody>
             </table>
