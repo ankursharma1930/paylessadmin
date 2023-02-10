@@ -24,25 +24,35 @@
           <div class="card-body">
             <h5 class="card-title"><button type="button" class="btn btn-success">Add User <i class="bi bi-plus-circle"></i></button></h5>
 
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-borderless datatable">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-borderless datatable table-striped table-hover">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th scope="col">User Id</th>
                   <th scope="col">Name</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Access</th>
                   <th scope="col">Status</th>
                   <th scope="col">Options</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let user of users">
-                  <th scope="row"><a href="#">{{user.id}}</a></th>
-                  <td><img src="assets/img/product-2.jpg" alt="">{{user.name}}</td>
-                  <td>{{user.role}}</td>
-                  <td>$64</td>
-                  <td><span class="badge bg-success">{{user.status}}</span></td>
-                  <td><span class="badge bg-success">Approved</span></td>
+                  <th scope="row"><a href="#" class="p-2 text-muted">{{user.id}}</a></th>
+                  <td><img src="assets/img/product-2.jpg" alt=""><b>{{user.name}}</b></td>
+
+                  <td *ngIf="user.role == 1">CEO</td>
+                  <td *ngIf="user.role == 2">Sale</td>
+                  <td *ngIf="user.role == 3">Website</td>
+                  <td *ngIf="user.role != 3 && user.role != 2 && user.role != 1">None</td>
+
+                  <td *ngIf="user.access == 1">Price Calculator</td>
+                  <td *ngIf="user.access == 2">Website Data</td>
+                  <td *ngIf="user.access == 3">Both</td>
+                  <td *ngIf="user.access != 3 && user.access != 2 && user.access != 1">None</td>
+
+                  <td *ngIf="user.status == 1"><span class="badge bg-success">Active</span></td>
+                  <td *ngIf="user.status != 1"><span class="badge bg-danger">Inactive</span></td>
+                  <td><a href="#" class="p-2 text-muted"><i class="bi bi-pencil-fill"></i></a><a href="#" class="p-2 text-muted"><i class="ri-delete-bin-6-fill"></i></a></td>
                 </tr>
                 
                 
