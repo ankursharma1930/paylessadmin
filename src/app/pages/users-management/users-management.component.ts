@@ -4,7 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 
 
 const GET_USERS = gql`
-  query GetPosts {
+  query users {
     users {
     id
     name
@@ -15,6 +15,15 @@ const GET_USERS = gql`
   }
   }
 `
+const DELETE_USER = gql`
+  mutation deleteUser($id: ID!) {
+    deleteUser(id: $id) {
+      id
+    }
+  }
+`
+
+declare var window:any;
 
 @Component({
   selector: 'app-users-management',
@@ -30,10 +39,13 @@ export class UsersManagementComponent implements OnInit {
   private querySubscription: Subscription | undefined
 
   constructor(private apollo: Apollo) { }
-  
+  deleteModal:any;
+  idToDelete:number = 0;
 
   ngOnInit(): void {
-
+    this.deleteModal = new window.bootstrap.Modal(
+      document.getElementById('deleteModal')
+    );
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
@@ -50,6 +62,29 @@ export class UsersManagementComponent implements OnInit {
       })
   }
 
-  
+  openConfirmation(id:number){
+      this.idToDelete = id;
+      console.log(id);
+      this.deleteModal.show();
+  }
+
+  delete(){
+    console.log(this.idToDelete);
+    this.apollo
+      .mutate({
+        mutation: DELETE_USER,
+        variables: {
+          id: this.idToDelete
+        }
+      })
+      .subscribe(
+        ({ data }) => {
+          console.log('got data', data)
+        },
+        error => {
+          console.log('there was an error sending the query', error)
+        }
+      )
+  }
 
 }
