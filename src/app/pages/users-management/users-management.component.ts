@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 
 const GET_USERS = gql`
@@ -23,6 +23,7 @@ const GET_USERS = gql`
 })
 export class UsersManagementComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   loading: boolean | undefined
   users: any
   
@@ -34,7 +35,8 @@ export class UsersManagementComponent implements OnInit {
   ngOnInit(): void {
 
     this.dtOptions = {
-      pagingType: 'full_numbers'
+      pagingType: 'full_numbers',
+      pageLength: 10
     };
 
     this.querySubscription = this.apollo
@@ -44,6 +46,7 @@ export class UsersManagementComponent implements OnInit {
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading
         this.users = data.users
+        this.dtTrigger.next(null);
       })
   }
 
