@@ -37,6 +37,7 @@ export class UsersManagementComponent implements OnInit {
   users: any
   
   private querySubscription: Subscription | undefined
+ 
 
   constructor(private apollo: Apollo) { }
   deleteModal:any;
@@ -80,6 +81,8 @@ export class UsersManagementComponent implements OnInit {
       .subscribe(
         ({ data }) => {
           console.log('got data', data)
+          this.deleteModal.hide();
+          window.location.reload()
         },
         error => {
           console.log('there was an error sending the query', error)

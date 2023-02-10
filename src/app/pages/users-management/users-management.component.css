@@ -6,3 +6,6 @@
 table.dataTable {
     padding-top: 15px;
 }
+table ,p-2.text-muted{
+    cursor: pointer;
+}
