@@ -34,8 +34,8 @@ export class AuthService {
         if(result.data?.login){
           localStorage.setItem("token", result.data?.login);
           this.isAuthenticated.next(true);
-          window.location.href = "/dashboard";
           this.getMe();
+          window.location.href = "/dashboard";
         }
       },
         error => {
