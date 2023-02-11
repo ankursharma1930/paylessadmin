@@ -23,6 +23,28 @@ const DELETE_USER = gql`
   }
 `
 
+const GET_USER = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+    id
+    name
+    email
+    role
+    access
+    status
+  }
+  }
+`
+
+
+const UPDATE_USER = gql`
+mutation updateUser($id: ID!, $name: String!, $role: String!, $access: String!, $status: String!) {
+  updateUser(id: $id, name: $name, role: $role, access: $access, status: $status) {
+    email
+  }
+}
+`;
+
 declare var window:any;
 
 @Component({
@@ -36,12 +58,24 @@ export class UsersManagementComponent implements OnInit {
   loading: boolean | undefined
   users: any
   
+  email!: string;
+  name!: string;
+  password!: string;
+  role!: string;
+  access!: string;
+  status!: string;
+
+  userId: any;
+  
+  error:any;
+
   private querySubscription: Subscription | undefined
  
 
   constructor(private apollo: Apollo) { }
   deleteModal:any;
   createModal:any;
+  updateModal:any;
   idToDelete:number = 0;
 
   ngOnInit(): void {
@@ -51,6 +85,10 @@ export class UsersManagementComponent implements OnInit {
     
     this.createModal = new window.bootstrap.Modal(
       document.getElementById('createModal')
+    );
+
+    this.updateModal = new window.bootstrap.Modal(
+      document.getElementById('updateModal')
     );
 
     this.dtOptions = {
@@ -76,10 +114,34 @@ export class UsersManagementComponent implements OnInit {
 
   openCreateModal(){
     this.createModal.show();
-}
+  }
+
+  openUpdateModal(id:number){
+    this.idToDelete = id;
+    this.querySubscription = this.apollo
+      .watchQuery<any>({
+        query: GET_USER,
+        variables: {
+          id: this.idToDelete
+        }
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        this.loading = loading
+        this.email = data.user.email
+        this.name = data.user.name
+        this.role = data.user.role
+        this.access = data.user.access
+        this.status = data.user.status
+        this.userId = data.user.id
+        console.log(data);
+      })
+
+
+    this.updateModal.show();
+  }
 
   delete(){
-    console.log(this.idToDelete);
+    
     this.apollo
       .mutate({
         mutation: DELETE_USER,
@@ -97,6 +159,33 @@ export class UsersManagementComponent implements OnInit {
           console.log('there was an error sending the query', error)
         }
       )
+  }
+
+
+  onSubmit(){
+    console.log(typeof this.role);
+    this.apollo
+      .mutate({
+        mutation: UPDATE_USER,
+        variables: { 
+          id:this.userId,
+          name:this.name,
+          role:String(this.role),
+          access:String(this.access),
+          status:String(this.status)
+        }
+      })
+      .subscribe((result: any) => {
+        
+        if(result.data?.updateUser){
+          console.log("user updated");
+          window.location.reload();
+        }
+      },
+        error => {
+          console.log("there was an error sending the query", error);
+        }
+      );
   }
 
 }

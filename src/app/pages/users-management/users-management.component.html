@@ -53,7 +53,8 @@
                   <td *ngIf="user.status == 1"><span class="badge bg-success">Active</span></td>
                   <td *ngIf="user.status != 1"><span class="badge bg-danger">Inactive</span></td>
                   <td>
-                    <a href="#" class="p-2 text-muted"><i class="bi bi-pencil-fill"></i></a><span class="p-2 text-muted" (click)="openConfirmation(user.id)"><i class="ri-delete-bin-6-fill"></i></span>
+                    <span class="p-2 text-muted" (click)="openUpdateModal(user.id)"><i class="bi bi-pencil-fill"></i></span>
+                    <span class="p-2 text-muted" (click)="openConfirmation(user.id)"><i class="ri-delete-bin-6-fill"></i></span>
                     
                   </td>
                 </tr>
@@ -91,5 +92,66 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body">
+                  <h5 class="card-title">Onboard New User</h5>
+
+                  <!-- Multi Columns Form -->
+                  <form class="row g-3 needs-validation" novalidate (ngSubmit)="onSubmit()">
+                      <div class="col-md-12">
+                          <label for="inputName5" class="form-label fw-bold">Full Name</label>
+                          <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" [(ngModel)]  = "name" required>
+                      </div>
+                      <div class="col-md-12">
+                          <label for="inputEmail5" class="form-label fw-bold">Email</label>
+                          <input type="email" class="form-control" id="emain" name="email" placeholder="Email Id" readonly [(ngModel)]  = "email" required>
+                      </div>
+                     
+                      <div class="col-md-12">
+                          <label for="inputState" class="form-label fw-bold">Choose Role</label>
+                          <select id="inputState" class="form-select" [(ngModel)]  = "role" name="role">
+                              <option selected value="0">--None--</option>
+                              <option value="1">CEO</option>
+                              <option value="2">Sale</option>
+                              <option value="3">Website</option>
+                          </select>
+                      </div>
+                      <div class="col-12">
+                          <label class="form-check-label fw-bold" for="inlineRadio1">Choose user access permission</label><br>
+
+                          <select id="access" class="form-select" [(ngModel)]  = "access" name="access">
+                            <option selected value="0">--None--</option>
+                            <option value="1">Price Calculator</option>
+                            <option value="2">Website Data</option>
+                            <option value="3">Both</option>
+                          </select>
+                      </div>
+                      <div class="col-md-12">
+                          <label for="inputState" class="form-label fw-bold">Status(Active/Inactive)</label>
+                          <select id="status" class="form-select" name="status" [(ngModel)]  = "status">
+                              <option selected value="0">Inactive</option>
+                              <option value="1">Active</option>
+                          </select>
+                      </div>
+                          <button  type="submit" class="btn btn-primary">Confirm Update</button>
+                  </form><!-- End Multi Columns Form -->
+              </div>
+
+          </div>
+          
+      </div>
+  </div>
+</div>
+
+
 <app-user-create></app-user-create>
 <app-footer></app-footer>
