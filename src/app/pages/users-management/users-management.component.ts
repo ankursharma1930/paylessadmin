@@ -41,12 +41,18 @@ export class UsersManagementComponent implements OnInit {
 
   constructor(private apollo: Apollo) { }
   deleteModal:any;
+  createModal:any;
   idToDelete:number = 0;
 
   ngOnInit(): void {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('deleteModal')
     );
+    
+    this.createModal = new window.bootstrap.Modal(
+      document.getElementById('createModal')
+    );
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
@@ -65,9 +71,12 @@ export class UsersManagementComponent implements OnInit {
 
   openConfirmation(id:number){
       this.idToDelete = id;
-      console.log(id);
       this.deleteModal.show();
   }
+
+  openCreateModal(){
+    this.createModal.show();
+}
 
   delete(){
     console.log(this.idToDelete);

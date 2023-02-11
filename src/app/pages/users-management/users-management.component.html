@@ -22,7 +22,7 @@
           
 
           <div class="card-body">
-            <h5 class="card-title"><button type="button" class="btn btn-success">Add User <i class="bi bi-plus-circle"></i></button></h5>
+            <h5 class="card-title"><button type="button" class="btn btn-success" (click)="openCreateModal()">Add User <i class="bi bi-plus-circle"></i></button></h5>
 
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-borderless datatable table-striped table-hover">
               <thead>
@@ -73,7 +73,7 @@
 
 
 
-<!-- Modal -->
+<!-- Confirmation Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -91,5 +91,5 @@
     </div>
   </div>
 </div>
-
+<app-user-create></app-user-create>
 <app-footer></app-footer>

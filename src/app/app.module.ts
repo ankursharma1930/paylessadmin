@@ -23,6 +23,7 @@ import { TestComponent } from './include/test/test.component';
 import { UsersManagementComponent } from './pages/users-management/users-management.component';
 import { DataTablesModule } from 'angular-datatables';
 import { TestauthComponent } from './pages/testauth/testauth.component';
+import { UserCreateComponent } from './pages/users-management/user-create/user-create.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -43,7 +44,8 @@ const appRoutes: Routes = [
     SidebarComponent,
     TestComponent,
     UsersManagementComponent,
-    TestauthComponent
+    TestauthComponent,
+    UserCreateComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
