@@ -11,10 +11,12 @@ export class LoginComponent {
   password!: string;
   device: string = "web";
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService){
+    localStorage.removeItem("token");
+    localStorage.removeItem("data");
+  }
 
   onSubmit(){
-    
     this.authService.login(this.email, this.password, this.device);
   }
 }
