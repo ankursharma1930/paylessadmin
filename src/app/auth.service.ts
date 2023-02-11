@@ -34,7 +34,7 @@ export class AuthService {
         if(result.data?.login){
           localStorage.setItem("token", result.data?.login);
           this.isAuthenticated.next(true);
-          this.getMe();
+          //this.getMe();
           window.location.href = "/dashboard";
         }
       },
@@ -46,6 +46,7 @@ export class AuthService {
   //Logout user
   signout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("data");
     this.isAuthenticated.next(false);
     window.location.href = "/login";
   }
@@ -56,26 +57,26 @@ export class AuthService {
     }
   }
 
-  getMe(){
-    this.apollo
-      .watchQuery({
-        query: gql`
-          {
-            me{
-              name
-              email
-              access
-              role
-            }
-          }
-        `
-      })
-      .valueChanges.subscribe((result: any) => {
-        this.user = result.data?.me
-        localStorage.setItem("data", JSON.stringify(this.user))
-        this.loading = result.loading
-        this.error = result.error
-      })
-  }
+  // getMe(){
+  //   this.apollo
+  //     .watchQuery({
+  //       query: gql`
+  //         {
+  //           me{
+  //             name
+  //             email
+  //             access
+  //             role
+  //           }
+  //         }
+  //       `
+  //     })
+  //     .valueChanges.subscribe((result: any) => {
+  //       this.user = result.data?.me
+  //       localStorage.setItem("data", JSON.stringify(this.user))
+  //       this.loading = result.loading
+  //       this.error = result.error
+  //     })
+  // }
 
 }

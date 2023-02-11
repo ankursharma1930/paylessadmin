@@ -9,3 +9,8 @@ table.dataTable {
 table ,p-2.text-muted{
     cursor: pointer;
 }
+.updateuser .modal-header{
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.updateuser .modal-body{padding-top: 0;}
