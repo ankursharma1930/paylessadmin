@@ -24,13 +24,15 @@ import { UsersManagementComponent } from './pages/users-management/users-managem
 import { DataTablesModule } from 'angular-datatables';
 import { TestauthComponent } from './pages/testauth/testauth.component';
 import { UserCreateComponent } from './pages/users-management/user-create/user-create.component';
+import { SupplierComponent } from './pages/supplier/supplier.component';
 
 const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'usermanage', component:UsersManagementComponent},
+  {path: 'login', component: LoginComponent, title: 'Login' },
+  {path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
+  {path: 'usermanage', component:UsersManagementComponent,title: 'User Management' },
+  {path: 'supplier', component:SupplierComponent, title: 'Supplier' },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
-  {path: '**', component: NotfoundComponent}
+  {path: '**', component: NotfoundComponent, title: '404 Not Found' }
 ]
 
 @NgModule({
@@ -45,7 +47,8 @@ const appRoutes: Routes = [
     TestComponent,
     UsersManagementComponent,
     TestauthComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    SupplierComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
