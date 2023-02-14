@@ -15,10 +15,18 @@ const GET_SUPPLIERS = gql`
     postcode
   }
   }
-`
+`;
+
+const DELETE_SUPPLIER = gql`
+  mutation deleteSupplier($id: ID!) {
+    deleteSupplier(id: $id) {
+      id
+    }
+  }
+`;
 
 const GET_SUPPLIER = gql`
-  query user($id: ID!) {
+  query supplier($id: ID!) {
     supplier(id: $id) {
     id
     name
@@ -28,7 +36,17 @@ const GET_SUPPLIER = gql`
     postcode
   }
   }
-`
+`;
+
+const UPDATE_SUPPLIER = gql`
+mutation updateSupplier($id: ID!, $name: String, $country: String, $currency: String, $postcode: String) {
+  updateSupplier(id: $id, name: $name, country: $country, currency: $currency, postcode: $postcode) {
+    name
+  }
+}
+`;
+
+declare var window:any;
 
 @Component({
   selector: 'app-supplier',
@@ -63,6 +81,17 @@ export class SupplierComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.deleteModal = new window.bootstrap.Modal(
+      document.getElementById('deleteModal')
+    );
+    this.createModal = new window.bootstrap.Modal(
+      document.getElementById('createModal')
+    );
+    
+    this.updateModal = new window.bootstrap.Modal(
+      document.getElementById('updateModal')
+    );
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
@@ -78,6 +107,85 @@ export class SupplierComponent implements OnInit {
         this.dtTrigger.next(null);
       })
 
+  }
+
+  openConfirmation(id:number){
+    this.idToDelete = id;
+    this.deleteModal.show();
+  }
+  openCreateModal(){
+    this.createModal.show();
+  }
+
+
+  openUpdateModal(id:number){
+    this.idToDelete = id;
+    this.querySubscription = this.apollo
+      .watchQuery<any>({
+        query: GET_SUPPLIER,
+        variables: {
+          id: this.idToDelete
+        }
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        this.loading = loading
+        this.name = data.supplier.name
+        this.country = data.supplier.country
+        this.currency = data.supplier.currency
+        this.postcode = data.supplier.postcode
+        this.supplierId = data.supplier.id
+        console.log(data);
+      })
+
+
+    this.updateModal.show();
+  }
+
+  delete(){
+    
+    this.apollo
+      .mutate({
+        mutation: DELETE_SUPPLIER,
+        variables: {
+          id: this.idToDelete
+        }
+      })
+      .subscribe(
+        ({ data }) => {
+          console.log('got data', data)
+          this.deleteModal.hide();
+          window.location.reload()
+        },
+        error => {
+          console.log('there was an error sending the query', error)
+        }
+      )
+  }
+
+  onSubmit(){
+   console.log(typeof this.supplierId)
+    this.apollo
+      .mutate({
+        mutation: UPDATE_SUPPLIER,
+        variables: { 
+          id:this.supplierId,
+          name:this.name,
+          country:String(this.country),
+          currency:String(this.currency),
+          postcode:String(this.postcode)
+        }
+      })
+      .subscribe((result: any) => {
+        
+        if(result.data?.updateSupplier){
+          console.log("Supplier updated");
+          window.location.reload();
+        }
+      },
+        error => {
+          console.log("there was an error sending the query", error);
+        }
+      );
   }
 
 }

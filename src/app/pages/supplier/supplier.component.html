@@ -19,7 +19,7 @@
       <div class="col-12">
         <div class="card recent-sales overflow-auto">
           <div class="card-body">
-            <h5 class="card-title"><button type="button" class="btn btn-success">Add Supplier <i class="bi bi-plus-circle"></i></button></h5>
+            <h5 class="card-title"><button type="button" class="btn btn-success" (click)="openCreateModal()">Add Supplier <i class="bi bi-plus-circle"></i></button></h5>
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-borderless datatable table-striped table-hover">
               <thead>
                 <tr>
@@ -39,8 +39,8 @@
                   <td>{{supplier.currency}}</td>
                   <td>{{supplier.postcode}}</td>
                   <td>
-                    <span class="p-2 text-muted" ><i class="bi bi-pencil-fill"></i></span>
-                    <span class="p-2 text-muted" ><i class="ri-delete-bin-6-fill"></i></span>
+                    <span class="p-2 text-muted" (click)="openUpdateModal(supplier.id)" ><i class="bi bi-pencil-fill"></i></span>
+                    <span class="p-2 text-muted" (click)="openConfirmation(supplier.id)"><i class="ri-delete-bin-6-fill"></i></span>
                   </td>
                 </tr>
                 
@@ -59,11 +59,69 @@
 
 
 
+<!-- Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you really want to delete this user?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="delete()">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
+<div class="modal fade updateuser" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body">
+                  <h5 class="card-title">Update <b>{{name}}</b> Profile</h5>
+                  
+                  <!-- Multi Columns Form -->
+                  <form class="row g-3 needs-validation" novalidate (ngSubmit)="onSubmit()">
+                    <div class="col-md-12">
+                        <label for="inputName5" class="form-label fw-bold">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Supplier Name" [(ngModel)]  = "name" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="inputEmail5" class="form-label fw-bold">Country</label>
+                        <input type="text" class="form-control" id="country" name="country" placeholder="Country" [(ngModel)]  = "country" placeholder="eg: Australia" required>
+                    </div>
+    
+                    <div class="col-md-12">
+                        <label for="inputPassword5" class="form-label fw-bold">Currency</label>
+                        <input type="text" class="form-control" name="currency" id="currency" [(ngModel)]  = "currency" placeholder="eg: AUD" required>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label for="inputPassword5" class="form-label fw-bold">Postcode</label>
+                        <input type="text" class="form-control" name="postcode" id="currency" [(ngModel)]  = "postcode" placeholder="eg: Postcode" required>
+                    </div>
+                   
+                        <button  type="submit" class="btn btn-primary">Confirm Create</button>
+                </form><!-- End Multi Columns Form -->
+              </div>
+
+          </div>
+          
+      </div>
+  </div>
+</div>
 
 
 
-
+<app-supplier-create></app-supplier-create>
 <app-footer></app-footer>

@@ -25,6 +25,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { TestauthComponent } from './pages/testauth/testauth.component';
 import { UserCreateComponent } from './pages/users-management/user-create/user-create.component';
 import { SupplierComponent } from './pages/supplier/supplier.component';
+import { SupplierCreateComponent } from './pages/supplier/supplier-create/supplier-create.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login' },
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     UsersManagementComponent,
     TestauthComponent,
     UserCreateComponent,
-    SupplierComponent
+    SupplierComponent,
+    SupplierCreateComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,

@@ -1,0 +1,41 @@
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <h5 class="card-title">Add Supplier</h5>
+
+                    <!-- Multi Columns Form -->
+                    <form class="row g-3 needs-validation" novalidate (ngSubmit)="onSubmit()">
+                        <div class="col-md-12">
+                            <label for="inputName5" class="form-label fw-bold">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Supplier Name" [(ngModel)]  = "name" required>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="inputEmail5" class="form-label fw-bold">Country</label>
+                            <input type="text" class="form-control" id="country" name="country" placeholder="Country" [(ngModel)]  = "country" placeholder="eg: Australia" required>
+                        </div>
+        
+                        <div class="col-md-12">
+                            <label for="inputPassword5" class="form-label fw-bold">Currency</label>
+                            <input type="text" class="form-control" name="currency" id="currency" [(ngModel)]  = "currency" placeholder="eg: AUD" required>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <label for="inputPassword5" class="form-label fw-bold">Postcode</label>
+                            <input type="text" class="form-control" name="postcode" id="currency" [(ngModel)]  = "postcode" placeholder="eg: Postcode" required>
+                        </div>
+                       
+                            <button  type="submit" class="btn btn-primary">Confirm Create</button>
+                    </form><!-- End Multi Columns Form -->
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+</div>
