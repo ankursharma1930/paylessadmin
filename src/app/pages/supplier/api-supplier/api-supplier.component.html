@@ -1,21 +1,159 @@
 <form class="row gx-3 gy-2 align-items-center mb-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <b>Fetch Supplier data by ID from Promodata API</b>
-        <div class="alert alert-danger col-sm-3 ms-2" *ngIf="error" role="alert">
+
+        <div class="alert alert-danger col-sm-3 ms-2 alert-dismissible fade show" *ngIf="error" role="alert">
             {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="alert alert-info col-sm-3 ms-2" *ngIf="waiting" role="alert">
+        <div class="alert alert-info col-sm-3 ms-2 col-sm-3 ms-2 alert-dismissible fade show" *ngIf="waiting"
+            role="alert">
             {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>
     <div class="row">
-    <div class="col-sm-3">
-        <label class="visually-hidden" for="specificSizeInputName">Name</label>
-        <input type="text" class="form-control" id="specificSizeInputName" placeholder="Enter Supplier ID" name="id"
-            [(ngModel)]="id">
+        <div class="col-sm-3">
+            <label class="visually-hidden" for="specificSizeInputName">Name</label>
+            <input type="text" class="form-control" id="specificSizeInputName" placeholder="Enter Supplier ID" name="id"
+                [(ngModel)]="id">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Fetch</button>
+        </div>
     </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary">Fetch</button>
+</form>
+
+<div class="modal fade modal-lg" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <section class="section profile">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card" *ngIf="alldata">
+                                    <div class="card-body pt-3">
+                                        <!-- Bordered Tabs -->
+                                        <ul class="nav nav-tabs nav-tabs-bordered">
+                                            <li class="nav-item">
+                                                <button class="nav-link active" data-bs-toggle="tab"
+                                                    data-bs-target="#profile-overview">Overview</button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button class="nav-link" data-bs-toggle="tab"
+                                                    data-bs-target="#profile-edit">Contact Details</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content pt-2">
+                                            <div class="tab-pane fade show active profile-overview"
+                                                id="profile-overview">
+                                                <div class="row" *ngIf="alldata.data.id">
+                                                    <div class="col-lg-3 col-md-4 label ">Supplier ID</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.id}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.name">
+                                                    <div class="col-lg-3 col-md-4 label ">Supplier Name</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.name}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.country">
+                                                    <div class="col-lg-3 col-md-4 label ">Country</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.country}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.active">
+                                                    <div class="col-lg-3 col-md-4 label ">Status</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.active}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.abn">
+                                                    <div class="col-lg-3 col-md-4 label ">ABN</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.details.abn}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.fax">
+                                                    <div class="col-lg-3 col-md-4 label ">Fax</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.details.fax}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.email">
+                                                    <div class="col-lg-3 col-md-4 label ">E-Mail</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.details.email}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.brands">
+                                                    <div class="col-lg-3 col-md-4 label ">Brands</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.details.brands}}</div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.phone_1">
+                                                    <div class="col-lg-3 col-md-4 label ">Phone 1</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.details.phone_1}}
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.website">
+                                                    <div class="col-lg-3 col-md-4 label ">Website</div>
+                                                    <div class="col-lg-9 col-md-8"><a
+                                                            href="{{alldata.data.details.website}}"
+                                                            target="_blank">{{alldata.data.details.website}}</a></div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.appa_profile">
+                                                    <div class="col-lg-3 col-md-4 label ">Appa profile</div>
+                                                    <div class="col-lg-9 col-md-8">{{alldata.data.details.appa_profile}}
+                                                    </div>
+                                                </div>
+                                                <div class="row" *ngIf="alldata.data.details.appa_identifier">
+                                                    <div class="col-lg-3 col-md-4 label ">Appa Identifier</div>
+                                                    <div class="col-lg-9 col-md-8">
+                                                        {{alldata.data.details.appa_identifier}}</div>
+                                                </div>
+                                                <div *ngIf="alldata.data.details.appa_notes">
+                                                    <h5 class="card-title">About</h5>
+                                                    <p class="small fst-italic">{{alldata.data.details.appa_notes}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                                                <div class="card" *ngIf="alldata.data.details.contacts">
+                                                    <div class="card-body">
+                                                        <div class="list-group">
+                                                            <div class="list-group-item list-group-item-action"
+                                                                aria-current="true"
+                                                                *ngFor="let contact of alldata.data.details.contacts">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb-1">{{contact.name}}</h5>
+                                                                    <small>{{contact.position}}</small>
+                                                                </div>
+                                                                <p class="mb-1">Email: {{contact.email}}</p>
+                                                                <small>{{contact.phone_1}}</small>
+                                                                <small>{{contact.phone_2}}</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card" *ngIf="alldata.data.details.addresses">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Address</h5>
+                                                        <div class="list-group">
+                                                            <div class="list-group-item list-group-item-action"
+                                                                aria-current="true"
+                                                                *ngFor="let add of alldata.data.details.addresses">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb-1">{{add.type}}</h5>
+                                                                </div>
+                                                                <p class="mb-1">{{add.address}}</p>
+                                                                <p class="mb-1">{{add.suburb}}</p>
+                                                                <p class="mb-1">{{add.state}}</p>
+                                                                <p class="mb-1">{{add.postcode}} - {{add.country}}</p>
+                                                            </div>
+                                                        </div><!-- End List group Advanced Content -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Bordered Tabs -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</form>

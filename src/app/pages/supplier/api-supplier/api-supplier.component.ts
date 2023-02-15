@@ -9,6 +9,9 @@ const headers = new HttpHeaders({
   'Content-Type' : 'application/json'
 });
 
+declare var window:any;
+
+
 @Component({
   selector: 'app-api-supplier',
   templateUrl: './api-supplier.component.html',
@@ -20,12 +23,16 @@ export class ApiSupplierComponent implements OnInit {
   id!:string;
   message!:string;
   error:boolean = false;
-  data:any;
+  alldata:any;
   waiting:boolean = false;
+  openModal:any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.openModal = new window.bootstrap.Modal(
+      document.getElementById('openModal')
+    );
   }
 
   onSubmit(){
@@ -43,19 +50,21 @@ export class ApiSupplierComponent implements OnInit {
   getData(id:any):any{
     this.waiting = true;
     this.message = "Please wait we are fetching the data...";
-    // this.http.get('/api/suppliers/'+id, { headers })    //use apiurl later instead of /api/
-    // .subscribe(data => {
-    //   this.data = data;
-    //   this.message = this.data.msg;
-    // }
-    // ,
-    // error => {
-    //       this.error = true;
-    //       this.waiting = false;
-    //       this.message = error.statusText;
-    //       console.log('there was an error sending the query', error)
-    //     }
-    // );
+    
+    this.http.get('/api/suppliers/'+id, { headers })    //use apiurl later instead of /api/
+    .subscribe(data => {
+      this.alldata = data;
+      this.message = this.alldata.msg;
+      this.openModal.show();
+    }
+    ,
+    error => {
+          this.error = true;
+          this.waiting = false;
+          this.message = error.statusText;
+          console.log('there was an error sending the query', error)
+        }
+    );
   }
 
 }
