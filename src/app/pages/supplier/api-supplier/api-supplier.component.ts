@@ -26,6 +26,7 @@ export class ApiSupplierComponent implements OnInit {
   alldata:any;
   waiting:boolean = false;
   openModal:any;
+  getclass!:string;
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +40,7 @@ export class ApiSupplierComponent implements OnInit {
     this.error = false;
     if(!this.id){
       this.error = true;
+      this.getclass = "danger";
       this.message = "Supplier ID is missing!"
     }else{
       this.getData(this.id);
@@ -50,17 +52,19 @@ export class ApiSupplierComponent implements OnInit {
   getData(id:any):any{
     this.waiting = true;
     this.message = "Please wait we are fetching the data...";
-    
+    this.getclass = "primary";
     this.http.get('/api/suppliers/'+id, { headers })    //use apiurl later instead of /api/
     .subscribe(data => {
       this.alldata = data;
       this.message = this.alldata.msg;
+      this.getclass = "success";
       this.openModal.show();
     }
     ,
     error => {
           this.error = true;
           this.waiting = false;
+          this.getclass = "danger";
           this.message = error.statusText;
           console.log('there was an error sending the query', error)
         }

@@ -2,15 +2,11 @@
     <div class="row">
         <b>Fetch Supplier data by ID from Promodata API</b>
 
-        <div class="alert alert-danger col-sm-3 ms-2 alert-dismissible fade show" *ngIf="error" role="alert">
+        <div class="alert alert-{{getclass}} col-sm-3 ms-2 alert-dismissible fade show" *ngIf="getclass" role="alert">
             {{message}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
         </div>
-        <div class="alert alert-info col-sm-3 ms-2 col-sm-3 ms-2 alert-dismissible fade show" *ngIf="waiting"
-            role="alert">
-            {{message}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        
     </div>
     <div class="row">
         <div class="col-sm-3">
