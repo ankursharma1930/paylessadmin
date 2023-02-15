@@ -14,8 +14,11 @@
             <input type="text" class="form-control" id="specificSizeInputName" placeholder="Enter Supplier ID" name="id"
                 [(ngModel)]="id">
         </div>
-        <div class="col-auto">
+        <div class="col-sm-3">
             <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i> Fetch Supplier</button>
+        </div>
+        <div class="col-sm-6 float-end">
+            <app-api-all-supplier></app-api-all-supplier>
         </div>
     </div>
 </form>

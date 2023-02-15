@@ -1,0 +1,54 @@
+<button type="button" class="btn btn-primary ms-4 float-end" (click)="fetchSupplier()"><i
+        class="bi bi-arrow-repeat"></i> Fetch All Supplier</button>
+
+
+
+<div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="alert alert-{{getclass}} col-sm-11 ms-2 alert-dismissible fade show" role="alert">
+                    {{message}}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="ngOnDestroy()"></button>
+            </div>
+            <div class="modal-body">
+
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                    class="table table-borderless datatable table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone_1</th>
+                            <th scope="col">Website</th>
+                            <th scope="col">Appa Profile</th>
+                            <th scope="col">Appa Identifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let data of alldata">
+                            <td>{{data.id}}</td>
+                            <td>{{data.name}}</td>
+                            <td>{{data.country}}</td>
+                            <td>{{data.details.email}}</td>
+                            <td>{{data.details.phone_1}}</td>
+                            <td><a href="{{data.details.website}}" target="_blank">{{data.details.website}}</a></td>
+                            <td><a href="{{data.details.appa_profile}}" target="_blank">{{data.details.appa_profile}}</a></td>
+                            <td>{{data.details.appa_identifier}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="ngOnDestroy()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
