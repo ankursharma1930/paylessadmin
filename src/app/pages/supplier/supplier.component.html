@@ -12,13 +12,14 @@
       </ol>
     </nav>
   </div><!-- End Page Title -->
-
+  <app-api-supplier></app-api-supplier>
   <section class="section dashboard usermanage">
     <div class="row">
       <!-- Recent Sales -->
       <div class="col-12">
         <div class="card recent-sales overflow-auto">
           <div class="card-body">
+            
             <h5 class="card-title"><button type="button" class="btn btn-success" (click)="openCreateModal()">Add Supplier <i class="bi bi-plus-circle"></i></button></h5>
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="table table-borderless datatable table-striped table-hover">
               <thead>
@@ -43,8 +44,6 @@
                     <span class="p-2 text-muted" (click)="openConfirmation(supplier.id)"><i class="ri-delete-bin-6-fill"></i></span>
                   </td>
                 </tr>
-                
-                
               </tbody>
             </table>
 

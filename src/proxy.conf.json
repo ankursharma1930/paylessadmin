@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://api.promodata.com.au",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true
+  }
+}

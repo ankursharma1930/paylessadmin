@@ -1,0 +1,21 @@
+<form class="row gx-3 gy-2 align-items-center mb-4" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <b>Fetch Supplier data by ID from Promodata API</b>
+        <div class="alert alert-danger col-sm-3 ms-2" *ngIf="error" role="alert">
+            {{message}}
+        </div>
+        <div class="alert alert-info col-sm-3 ms-2" *ngIf="waiting" role="alert">
+            {{message}}
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-3">
+        <label class="visually-hidden" for="specificSizeInputName">Name</label>
+        <input type="text" class="form-control" id="specificSizeInputName" placeholder="Enter Supplier ID" name="id"
+            [(ngModel)]="id">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Fetch</button>
+    </div>
+</div>
+</form>

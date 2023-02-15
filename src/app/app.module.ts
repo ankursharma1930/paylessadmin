@@ -26,6 +26,7 @@ import { TestauthComponent } from './pages/testauth/testauth.component';
 import { UserCreateComponent } from './pages/users-management/user-create/user-create.component';
 import { SupplierComponent } from './pages/supplier/supplier.component';
 import { SupplierCreateComponent } from './pages/supplier/supplier-create/supplier-create.component';
+import { ApiSupplierComponent } from './pages/supplier/api-supplier/api-supplier.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login' },
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     TestauthComponent,
     UserCreateComponent,
     SupplierComponent,
-    SupplierCreateComponent
+    SupplierCreateComponent,
+    ApiSupplierComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
