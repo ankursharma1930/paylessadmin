@@ -1,0 +1,16 @@
+.table-borderless.datatable img{
+    width: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+table.dataTable {
+    padding-top: 15px;
+}
+table ,p-2.text-muted{
+    cursor: pointer;
+}
+.updateuser .modal-header{
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.updateuser .modal-body{padding-top: 0;}

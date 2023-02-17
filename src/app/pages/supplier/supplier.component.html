@@ -28,6 +28,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Country</th>
                   <th scope="col">Currency</th>
+                  <th scope="col">Appa Identifier</th>
                   <th scope="col">Post code</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -38,6 +39,7 @@
                   <td><b>{{supplier.name}}</b></td>
                   <td>{{supplier.country}}</td>
                   <td>{{supplier.currency}}</td>
+                  <td>{{supplier.code}}</td>
                   <td>{{supplier.postcode}}</td>
                   <td>
                     <span class="p-2 text-muted" (click)="openUpdateModal(supplier.id)" ><i class="bi bi-pencil-fill"></i></span>
@@ -110,7 +112,7 @@
                         <input type="text" class="form-control" name="postcode" id="currency" [(ngModel)]  = "postcode" placeholder="eg: Postcode" required>
                     </div>
                    
-                        <button  type="submit" class="btn btn-primary">Confirm Create</button>
+                        <button  type="submit" class="btn btn-primary">Confirm Update</button>
                 </form><!-- End Multi Columns Form -->
               </div>
 
