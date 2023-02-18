@@ -6,7 +6,16 @@ import { AuthService } from 'src/app/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  userData: any;
+
   constructor(private authService: AuthService){
     this.authService.checkToken();
+    this.userData = localStorage.getItem('data');
+    this.userData = JSON.parse(this.userData); 
+  }
+
+  signout(){
+    console.log("ASd");
+    this.authService.signout();
   }
 }
