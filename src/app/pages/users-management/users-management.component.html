@@ -40,7 +40,7 @@
                   <th scope="row"><a href="#" class="p-2 text-muted">{{user.id}}</a></th>
                   <td><img src="assets/img/product-2.jpg" alt=""><b>{{user.name}}</b></td>
 
-                  <td *ngIf="user.role == 1">CEO</td>
+                  <td *ngIf="user.role == 1">Admin</td>
                   <td *ngIf="user.role == 2">Sale</td>
                   <td *ngIf="user.role == 3">Website</td>
                   <td *ngIf="user.role != 3 && user.role != 2 && user.role != 1">None</td>
@@ -104,22 +104,26 @@
               <div class="card-body">
                   <h5 class="card-title">Update <b>{{name}}</b> Profile</h5>
                   <p class="alert alert-warning">You can't update <b>{{name}}</b> email ID, you can only view email Id</p>
+                  <p class="alert alert-warning">password will not get update for <b>{{name}}</b> if you submite the empty value on password</p>
                   <!-- Multi Columns Form -->
                   <form class="row g-3 needs-validation" novalidate (ngSubmit)="onSubmit()">
                       <div class="col-md-12">
                           <label for="inputName5" class="form-label fw-bold">Full Name</label>
                           <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" [(ngModel)]  = "name" required>
                       </div>
-                      <div class="col-md-12">
+                      <div class="col-md-6">
                           <label for="inputEmail5" class="form-label fw-bold">Email</label>
                           <input type="email" class="form-control" id="emain" name="email" placeholder="Email Id" readonly [(ngModel)]  = "email" required>
                       </div>
-                     
+                      <div class="col-md-6">
+                        <label for="inputPassword5" class="form-label fw-bold">Password</label>
+                        <input type="password" class="form-control" name="newpassword" id="newpassword" [(ngModel)]  = "newpassword" required>
+                      </div>
                       <div class="col-md-12">
                           <label for="inputState" class="form-label fw-bold">Choose Role</label>
                           <select id="inputState" class="form-select" [(ngModel)]  = "role" name="role">
                               <option selected value="0">--None--</option>
-                              <option value="1">CEO</option>
+                              <option value="1">Admin</option>
                               <option value="2">Sale</option>
                               <option value="3">Website</option>
                           </select>
@@ -134,13 +138,13 @@
                             <option value="3">Both</option>
                           </select>
                       </div>
-                      <div class="col-md-12">
+                      <!-- <div class="col-md-12">
                           <label for="inputState" class="form-label fw-bold">Status(Active/Inactive)</label>
                           <select id="status" class="form-select" name="status" [(ngModel)]  = "status">
                               <option selected value="0">Inactive</option>
                               <option value="1">Active</option>
                           </select>
-                      </div>
+                      </div> -->
                           <button  type="submit" class="btn btn-primary">Confirm Update</button>
                   </form><!-- End Multi Columns Form -->
               </div>

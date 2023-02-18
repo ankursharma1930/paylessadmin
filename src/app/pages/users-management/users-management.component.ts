@@ -32,20 +32,21 @@ const GET_USER = gql`
     role
     access
     status
+    
   }
   }
 `
 
 
 const UPDATE_USER = gql`
-mutation updateUser($id: ID!, $name: String!, $role: String!, $access: String!, $status: String!) {
-  updateUser(id: $id, name: $name, role: $role, access: $access, status: $status) {
+mutation updateUser($id: ID!, $name: String!, $role: String, $access: String, $password: String) {
+  updateUser(id: $id, name: $name, role: $role, access: $access,  password:$password) {
     email
   }
 }
 `;
 
-declare var window:any;
+declare var window: any;
 
 @Component({
   selector: 'app-users-management',
@@ -57,32 +58,34 @@ export class UsersManagementComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   loading: boolean | undefined
   users: any
-  
+
   email!: string;
   name!: string;
   password!: string;
   role!: string;
   access!: string;
   status!: string;
+  newpassword!: string;
 
   userId: any;
-  
-  error:any;
-
+  class!:string;
+  message!:string;
+  error: any;
+  variable: any;
   private querySubscription: Subscription | undefined
- 
+
 
   constructor(private apollo: Apollo) { }
-  deleteModal:any;
-  createModal:any;
-  updateModal:any;
-  idToDelete:number = 0;
+  deleteModal: any;
+  createModal: any;
+  updateModal: any;
+  idToDelete: number = 0;
 
   ngOnInit(): void {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('deleteModal')
     );
-    
+
     this.createModal = new window.bootstrap.Modal(
       document.getElementById('createModal')
     );
@@ -107,16 +110,16 @@ export class UsersManagementComponent implements OnInit {
       })
   }
 
-  openConfirmation(id:number){
-      this.idToDelete = id;
-      this.deleteModal.show();
+  openConfirmation(id: number) {
+    this.idToDelete = id;
+    this.deleteModal.show();
   }
 
-  openCreateModal(){
+  openCreateModal() {
     this.createModal.show();
   }
 
-  openUpdateModal(id:number){
+  openUpdateModal(id: number) {
     this.idToDelete = id;
     this.querySubscription = this.apollo
       .watchQuery<any>({
@@ -140,8 +143,8 @@ export class UsersManagementComponent implements OnInit {
     this.updateModal.show();
   }
 
-  delete(){
-    
+  delete() {
+
     this.apollo
       .mutate({
         mutation: DELETE_USER,
@@ -162,22 +165,36 @@ export class UsersManagementComponent implements OnInit {
   }
 
 
-  onSubmit(){
-    console.log(typeof this.role);
+  onSubmit() {
+    
+    if (this.newpassword) {
+      this.variable = {
+        id: this.userId,
+        name: this.name,
+        role: String(this.role),
+        access: String(this.access),
+        status: String(this.status),
+        password: this.newpassword
+      };
+    } else {
+      this.variable = {
+        id: this.userId,
+        name: this.name,
+        role: String(this.role),
+        access: String(this.access),
+        status: String(this.status),
+        
+      };
+    }
+
     this.apollo
       .mutate({
         mutation: UPDATE_USER,
-        variables: { 
-          id:this.userId,
-          name:this.name,
-          role:String(this.role),
-          access:String(this.access),
-          status:String(this.status)
-        }
+        variables: this.variable
       })
       .subscribe((result: any) => {
-        
-        if(result.data?.updateUser){
+
+        if (result.data?.updateUser) {
           console.log("user updated");
           window.location.reload();
         }
