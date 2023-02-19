@@ -28,12 +28,14 @@ import { SupplierComponent } from './pages/supplier/supplier.component';
 import { SupplierCreateComponent } from './pages/supplier/supplier-create/supplier-create.component';
 import { ApiSupplierComponent } from './pages/supplier/api-supplier/api-supplier.component';
 import { ApiAllSupplierComponent } from './pages/supplier/api-all-supplier/api-all-supplier.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login' },
   {path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
   {path: 'usermanage', component:UsersManagementComponent,title: 'User Management' },
   {path: 'supplier', component:SupplierComponent, title: 'Supplier' },
+  {path: 'category', component:CategoryComponent, title: 'Category' },
   { path: '',   redirectTo: '/login', pathMatch: 'full' },
   {path: '**', component: NotfoundComponent, title: '404 Not Found' }
 ]
@@ -54,7 +56,8 @@ const appRoutes: Routes = [
     SupplierComponent,
     SupplierCreateComponent,
     ApiSupplierComponent,
-    ApiAllSupplierComponent
+    ApiAllSupplierComponent,
+    CategoryComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,

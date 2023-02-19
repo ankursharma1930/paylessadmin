@@ -38,7 +38,7 @@
               <tbody>
                 <tr *ngFor="let user of users">
                   <th scope="row"><a href="#" class="p-2 text-muted">{{user.id}}</a></th>
-                  <td><img src="assets/img/profile-img.jpg" alt=""><b>{{user.name}}</b></td>
+                  <td><img src="assets/img/profile.jpg" alt=""><b>{{user.name}}</b></td>
 
                   <td *ngIf="user.role == 1">Admin</td>
                   <td *ngIf="user.role == 2">Sale</td>
