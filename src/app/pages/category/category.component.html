@@ -31,35 +31,40 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Multi Columns Form</h5>
-                        <button type="button" class="btn btn-primary">Add Root Category</button><button type="button" class="btn btn-primary ms-5">Add Sub Category</button>
-                        
+                        <button type="button" class="btn btn-primary">Add Root Category</button><button type="button"
+                            class="btn btn-primary ms-5">Add Sub Category</button>
+
                         <form class="row g-3 mt-4">
                             <div class="col-md-3">
                                 <label for="inputName5" class="form-label fw-bold">Category Name</label>
-                                <input type="text" class="form-control" id="category_name" placeholder="Enter Categor Name">
+                                <input type="text" class="form-control" id="category_name"
+                                    placeholder="Enter Categor Name">
                             </div>
                             <div class="row g-2">
                                 <div class="col-md-3">
                                     <label for="inputEmail5" class="form-label fw-bold">Link To</label>
-                                    <input type="text" class="form-control" id="link_to" placeholder="Enter hot link categor here">
+                                    <input type="text" class="form-control" id="link_to"
+                                        placeholder="Enter hot link categor here">
                                 </div>
                                 <div class="col-md-3 ms-5">
                                     <label for="inputPassword5" class="form-label fw-bold">Link Filtered By</label>
                                     <input type="text" class="form-control" id="link_filter_by" placeholder="http://">
                                 </div>
                             </div>
-                            
+
                             <div class="row g-2">
                                 <div class="col-md-3">
                                     <label for="inputEmail5" class="form-label fw-bold">Product Naming Formula</label>
-                                    <input type="text" class="form-control" id="link_to" placeholder="Enter product naming formula">
+                                    <input type="text" class="form-control" id="link_to"
+                                        placeholder="Enter product naming formula">
                                 </div>
                                 <div class="col-md-3 ms-5">
                                     <label for="inputPassword5" class="form-label fw-bold">Product Name Suffix</label>
-                                    <input type="text" class="form-control" id="link_filter_by" placeholder="Enter product name suffix">
+                                    <input type="text" class="form-control" id="link_filter_by"
+                                        placeholder="Enter product name suffix">
                                 </div>
                             </div>
-                            
+
                         </form>
 
                     </div>
@@ -77,12 +82,80 @@
                             <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
                                 aria-labelledby="panelsStayOpen-headingOne">
                                 <div class="accordion-body">
-                                    <strong>This is the first item's accordion body.</strong> It is shown by default,
-                                    until the collapse plugin adds the appropriate classes that we use to style each
-                                    element. These classes control the overall appearance, as well as the showing and
-                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                                    our default variables. It's also worth noting that just about any HTML can go within
-                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                    <!--Alternate Name-->
+                                    <div class="row g-2 mt-4">
+                                        <div class="col-md12"><label for="inputName5"
+                                                class="form-label fw-bold">Alternate Name (SEO)</label></div>
+                                        <div class="col-md-3">
+                                            <label for="inputName5" class="form-label fw-bold">1</label>
+                                            <input type="text" class="form-control" id="altername1"
+                                                placeholder="Enter alternate Name">
+                                        </div>
+                                        <div class="col-md-3 ps-3">
+                                            <label for="inputName5" class="form-label fw-bold">2</label>
+                                            <input type="text" class="form-control" id="altername2"
+                                                placeholder="Enter alternate Name">
+                                        </div>
+                                        <div class="col-md-3 ps-3">
+                                            <label for="inputName5" class="form-label fw-bold">3</label>
+                                            <input type="text" class="form-control" id="altername3"
+                                                placeholder="Enter alternate Name">
+                                        </div>
+                                        <div class="col-md-3 ps-3">
+                                            <label for="inputName5" class="form-label fw-bold">4</label>
+                                            <input type="text" class="form-control" id="altername4"
+                                                placeholder="Enter alternate Name">
+                                        </div>
+                                    </div>
+                                    <!--Product name Keyword-->
+                                    <div class="row mt-4 g-2">
+                                        <div class="col-md12"><label for="inputName5"
+                                                class="form-label fw-bold">Product Name Keyword</label></div>
+                                        <div class="col-md-3">
+                                            <label for="inputName5" class="form-label fw-bold">1</label>
+                                            <input type="text" class="form-control" id="altername1"
+                                                placeholder="Enter keyword">
+                                        </div>
+                                        <div class="col-md-3 ps-3">
+                                            <label for="inputName5" class="form-label fw-bold">2</label>
+                                            <input type="text" class="form-control" id="altername2"
+                                                placeholder="Enter keyword">
+                                        </div>
+                                        <div class="col-md-3 ps-3">
+                                            <label for="inputName5" class="form-label fw-bold">3</label>
+                                            <input type="text" class="form-control" id="altername3"
+                                                placeholder="Enter keyword">
+                                        </div>
+                                        <div class="col-md-3 ps-3">
+                                            <label for="inputName5" class="form-label fw-bold">4</label>
+                                            <input type="text" class="form-control" id="altername4"
+                                                placeholder="Enter keyword">
+                                        </div>
+                                    </div>
+                                    
+                                    <!--Keyword-->
+                                    <div class="row mt-4 g-2">
+                                        <div class="col-md-9">
+                                            <label for="inputName5" class="form-label fw-bold">Keyword(Max 8)</label>
+                                            <textarea class="form-control" id="keywords" rows="3" placeholder="Enter Keywords and seprate them using comma"></textarea>
+                                        </div>
+                                    </div>
+                                    <!--HTML title tags-->
+                                    <div class="row mt-4 g-2">
+                                        <div class="col-md-9">
+                                            <label for="inputName5" class="form-label fw-bold">HTML Title Tag (Max 60 Char)</label>
+                                            <input type="text" class="form-control" id="title_tag"
+                                                placeholder="http://">
+                                        </div>
+                                    </div>
+
+                                    <!--Meta description-->
+                                    <div class="row mt-4 g-2">
+                                        <div class="col-md-9">
+                                            <label for="inputName5" class="form-label fw-bold">Meta Description</label>
+                                            <textarea class="form-control" id="meta_des" rows="3" placeholder="Enter Meta Description"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
