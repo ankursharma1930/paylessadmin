@@ -9,9 +9,9 @@ export class HeaderComponent {
   userData: any;
 
   constructor(private authService: AuthService){
-    this.authService.checkToken();
-    this.userData = localStorage.getItem('data');
-    this.userData = JSON.parse(this.userData); 
+    // this.authService.checkToken();
+    // this.userData = localStorage.getItem('data');
+    // this.userData = JSON.parse(this.userData); 
   }
 
   signout(){
