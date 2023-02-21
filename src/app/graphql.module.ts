@@ -5,7 +5,7 @@ import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache, ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
 
-const uri = 'http://laravel.paylesspromotions.com.au/graphql/';
+const uri = 'https://laravel.paylesspromotions.com.au/graphql/';
 
 export function createApollo(httpLink: HttpLink) {
   const basic = setContext((operation, context) => ({
