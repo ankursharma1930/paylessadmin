@@ -11,20 +11,7 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <button class="btn btn-primary fixed-button" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-chevron-left"></i></button>
-
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasRight"
-        aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            ...
-        </div>
-    </div>
+    <app-tree-category></app-tree-category>
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-12">
@@ -71,134 +58,9 @@
 
 
                     <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                    aria-controls="panelsStayOpen-collapseOne">
-                                    SEO
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                                aria-labelledby="panelsStayOpen-headingOne">
-                                <div class="accordion-body">
-                                    <!--Alternate Name-->
-                                    <div class="row g-2 mt-4">
-                                        <div class="col-md12"><label for="inputName5"
-                                                class="form-label fw-bold">Alternate Name (SEO)</label></div>
-                                        <div class="col-md-3">
-                                            <label for="inputName5" class="form-label fw-bold">1</label>
-                                            <input type="text" class="form-control" id="altername1"
-                                                placeholder="Enter alternate Name">
-                                        </div>
-                                        <div class="col-md-3 ps-3">
-                                            <label for="inputName5" class="form-label fw-bold">2</label>
-                                            <input type="text" class="form-control" id="altername2"
-                                                placeholder="Enter alternate Name">
-                                        </div>
-                                        <div class="col-md-3 ps-3">
-                                            <label for="inputName5" class="form-label fw-bold">3</label>
-                                            <input type="text" class="form-control" id="altername3"
-                                                placeholder="Enter alternate Name">
-                                        </div>
-                                        <div class="col-md-3 ps-3">
-                                            <label for="inputName5" class="form-label fw-bold">4</label>
-                                            <input type="text" class="form-control" id="altername4"
-                                                placeholder="Enter alternate Name">
-                                        </div>
-                                    </div>
-                                    <!--Product name Keyword-->
-                                    <div class="row mt-4 g-2">
-                                        <div class="col-md12"><label for="inputName5"
-                                                class="form-label fw-bold">Product Name Keyword</label></div>
-                                        <div class="col-md-3">
-                                            <label for="inputName5" class="form-label fw-bold">1</label>
-                                            <input type="text" class="form-control" id="altername1"
-                                                placeholder="Enter keyword">
-                                        </div>
-                                        <div class="col-md-3 ps-3">
-                                            <label for="inputName5" class="form-label fw-bold">2</label>
-                                            <input type="text" class="form-control" id="altername2"
-                                                placeholder="Enter keyword">
-                                        </div>
-                                        <div class="col-md-3 ps-3">
-                                            <label for="inputName5" class="form-label fw-bold">3</label>
-                                            <input type="text" class="form-control" id="altername3"
-                                                placeholder="Enter keyword">
-                                        </div>
-                                        <div class="col-md-3 ps-3">
-                                            <label for="inputName5" class="form-label fw-bold">4</label>
-                                            <input type="text" class="form-control" id="altername4"
-                                                placeholder="Enter keyword">
-                                        </div>
-                                    </div>
-                                    
-                                    <!--Keyword-->
-                                    <div class="row mt-4 g-2">
-                                        <div class="col-md-9">
-                                            <label for="inputName5" class="form-label fw-bold">Keyword(Max 8)</label>
-                                            <textarea class="form-control" id="keywords" rows="3" placeholder="Enter Keywords and seprate them using comma"></textarea>
-                                        </div>
-                                    </div>
-                                    <!--HTML title tags-->
-                                    <div class="row mt-4 g-2">
-                                        <div class="col-md-9">
-                                            <label for="inputName5" class="form-label fw-bold">HTML Title Tag (Max 60 Char)</label>
-                                            <input type="text" class="form-control" id="title_tag"
-                                                placeholder="http://">
-                                        </div>
-                                    </div>
-
-                                    <!--Meta description-->
-                                    <div class="row mt-4 g-2">
-                                        <div class="col-md-9">
-                                            <label for="inputName5" class="form-label fw-bold">Meta Description</label>
-                                            <textarea class="form-control" id="meta_des" rows="3" placeholder="Enter Meta Description"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseTwo">
-                                    Accordion Item #2
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
-                                aria-labelledby="panelsStayOpen-headingTwo">
-                                <div class="accordion-body">
-                                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                    until the collapse plugin adds the appropriate classes that we use to style each
-                                    element. These classes control the overall appearance, as well as the showing and
-                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                                    our default variables. It's also worth noting that just about any HTML can go within
-                                    the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseThree">
-                                    Accordion Item #3
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
-                                aria-labelledby="panelsStayOpen-headingThree">
-                                <div class="accordion-body">
-                                    <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                                    until the collapse plugin adds the appropriate classes that we use to style each
-                                    element. These classes control the overall appearance, as well as the showing and
-                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                                    our default variables. It's also worth noting that just about any HTML can go within
-                                    the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
+                        <app-seo-category></app-seo-category>
+                        <app-filter-category></app-filter-category>
+                        <app-supplier-category></app-supplier-category>
                     </div>
 
 

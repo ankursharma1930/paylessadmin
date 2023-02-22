@@ -29,6 +29,10 @@ import { SupplierCreateComponent } from './pages/supplier/supplier-create/suppli
 import { ApiSupplierComponent } from './pages/supplier/api-supplier/api-supplier.component';
 import { ApiAllSupplierComponent } from './pages/supplier/api-all-supplier/api-all-supplier.component';
 import { CategoryComponent } from './pages/category/category.component';
+import { SeoCategoryComponent } from './pages/category/seo-category/seo-category.component';
+import { FilterCategoryComponent } from './pages/category/filter-category/filter-category.component';
+import { TreeCategoryComponent } from './pages/category/tree-category/tree-category.component';
+import { SupplierCategoryComponent } from './pages/category/supplier-category/supplier-category.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login' },
@@ -57,7 +61,11 @@ const appRoutes: Routes = [
     SupplierCreateComponent,
     ApiSupplierComponent,
     ApiAllSupplierComponent,
-    CategoryComponent
+    CategoryComponent,
+    SeoCategoryComponent,
+    FilterCategoryComponent,
+    TreeCategoryComponent,
+    SupplierCategoryComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
