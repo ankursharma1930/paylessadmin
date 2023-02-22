@@ -5,8 +5,8 @@ import { Apollo, gql} from 'apollo-angular';
 
 
 const CREATE_USER = gql`
-mutation createUser($email: String!, $password: String!, $name: String!, $role: String!, $access: String!, $status: String!) {
-  createUser(email: $email, password: $password, name: $name, role: $role, access: $access, status: $status) {
+mutation createUser($email: String!, $password: String!, $name: String!, $role: String!, $access: String!) {
+  createUser(email: $email, password: $password, name: $name, role: $role, access: $access) {
     email
   }
 }

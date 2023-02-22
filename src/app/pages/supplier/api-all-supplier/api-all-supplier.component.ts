@@ -67,7 +67,8 @@ export class ApiAllSupplierComponent implements OnInit, OnDestroy {
     this.getclass = "primary";
     this.message = "Please wait we are fetching the data!";
     this.supplierModal.show();
-    this.http.get('/api/suppliers/', { headers })    //use apiurl later instead of /api/
+    //this.http.get('/api/suppliers/', { headers })    //use apiurl later instead of /api/
+    this.http.get(apiUrl, { headers })
       .subscribe(apidata => {
         this.alldata = apidata;
         this.message = this.alldata.msg;

@@ -53,7 +53,8 @@ export class ApiSupplierComponent implements OnInit {
     this.waiting = true;
     this.message = "Please wait we are fetching the data...";
     this.getclass = "primary";
-    this.http.get('/api/suppliers/'+id, { headers })    //use apiurl later instead of /api/
+    //this.http.get('/api/suppliers/'+id, { headers })    //use apiurl later instead of /api/
+    this.http.get(apiUrl+id, { headers })
     .subscribe(data => {
       this.alldata = data;
       this.message = this.alldata.msg;
