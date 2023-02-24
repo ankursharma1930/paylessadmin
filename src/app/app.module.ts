@@ -9,6 +9,9 @@ import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular'
 import { HttpLink } from 'apollo-angular/http'
 import { InMemoryCache } from '@apollo/client/core'
 
+import { TreeModule } from 'primeng/tree';
+import { ButtonModule } from 'primeng/button';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
@@ -75,6 +78,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     DataTablesModule,
+    TreeModule,
+    ButtonModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}

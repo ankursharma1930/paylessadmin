@@ -1,14 +1,30 @@
 <button class="btn btn-primary fixed-button" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-chevron-left"></i></button>
+        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" (click)="getAllCategory()"><i class="bi bi-chevron-left"></i></button>
 
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Category Tree</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
+
+        
+
         <div class="offcanvas-body">
-            ...
+
+            <div style="margin-bottom: 1rem">
+                <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"></button>
+                <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+            </div>
+            
+            <p-tree [value]="nodes"  [draggableNodes]="true" 
+            [droppableNodes]="true" 
+            draggableScope="self" 
+            droppableScope="self">
+                <ng-template let-node pTemplate="default">
+                    {{node.label}} ({{node.key}})
+                </ng-template>
+            </p-tree>
         </div>
     </div>
