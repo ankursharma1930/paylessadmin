@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TreeNode } from 'primeng/api';
-import { TreeDragDropService } from 'primeng/api';
+import { TreeDragDropService, TreeNodeDragEvent  } from 'primeng/api';
 import { Apollo, gql } from 'apollo-angular';
 import { Subject, Subscription } from 'rxjs';
 
@@ -18,7 +18,7 @@ interface UpdatedInterface {
   parent_id:any;
 }
 
-const GET_CATEGORY = gql`
+const GET_CATEGORIES = gql`
   query categories {
     categories {
     id
@@ -28,6 +28,28 @@ const GET_CATEGORY = gql`
   }
   }
 `;
+
+const GET_CATEGORY = gql`
+  query category($id: ID!){
+    category(id: $id){
+      id 
+      name
+      path
+      parent_id
+    }
+  }
+`
+
+const UPDATE_CATEGORY = gql`
+  mutation updateCategory($id: ID!, $path: String, $parent_id: String){
+    updateCategory(id: $id, path:$path, parent_id:$parent_id){
+      id
+      path
+      parent_id
+    }
+  }
+
+`
 
 @Component({
   selector: 'app-tree-category',
@@ -41,10 +63,12 @@ export class TreeCategoryComponent implements OnInit {
   nodes: TreeNode[] = [
     {
       key:"1",
-      label: "Default Category"
+      label: "Default Category",
+      expandedIcon: "pi pi-folder-open",
+      collapsedIcon: "pi pi-folder"
     }
   ];
-  loading: boolean | undefined
+  loading: boolean = true;
   category: any
   name!: string;
   id: any;
@@ -53,6 +77,12 @@ export class TreeCategoryComponent implements OnInit {
   newCategory:any;
   updatedCategory: UpdatedInterface[] = [];
   parentId: string = "1";
+  dropNode!:string;
+  dropedNodeId!:string;
+  dragNodepath!:string;
+  newPath!:string;
+  newParent!:string;
+  
 
   private querySubscription: Subscription | undefined
 
@@ -87,7 +117,7 @@ export class TreeCategoryComponent implements OnInit {
     getAllCategory(){
       this.querySubscription = this.apollo
       .watchQuery<any>({
-        query: GET_CATEGORY
+        query: GET_CATEGORIES
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading
@@ -120,5 +150,56 @@ export class TreeCategoryComponent implements OnInit {
       });
     }
     
+
+    onNodeDrop(event:any) {
+      console.log("event fired");
+      console.log(event);
+        //get parent/drop node path
+        this.querySubscription = this.apollo
+        .watchQuery<any>({
+          query: GET_CATEGORY,
+          variables: {
+            id: event.dropNode.key
+          }
+        })
+        .valueChanges.subscribe(({ data, loading }) => {
+          this.loading = loading
+          this.dragNodepath = data.category.path;
+          
+          this.newParent = data.category.id;
+          this.newPath = this.dragNodepath+"/"+event.dragNode.key;
+          
+          
+          console.log(event.dragNode.key);
+          console.log(this.newParent);
+          console.log(this.newPath);
+          this.updateCategoryPath(this.newPath, this.newParent, event.dragNode.key);
+        })
+
+    }
+
+    updateCategoryPath(path:any, parent:any, id:any){
+      this.apollo
+      .mutate({
+        mutation: UPDATE_CATEGORY,
+        variables: { 
+          id:id,
+          path:path,
+          parent_id:parent
+        }
+      })
+      .subscribe((result: any) => {
+        
+        if(result.data?.updateCategory){
+          console.log("category updated");
+        }
+        
+      },
+        error => {
+          console.log("there is an error contact developer")
+        },
+        
+      );
+    }
 
 }

@@ -3,8 +3,10 @@
 
     <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasRight"
         aria-labelledby="offcanvasRightLabel">
+        
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasRightLabel">Category Tree</h5>
+            
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                 aria-label="Close"></button>
         </div>
@@ -17,14 +19,20 @@
                 <button pButton type="button" label="Expand all" (click)="expandAll()" style="margin-right: .5rem"></button>
                 <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
             </div>
-            
-            <p-tree [value]="nodes"  [draggableNodes]="true" 
+            <h5>Search Category</h5>
+            <p-tree 
+            [value]="nodes" 
+            [filter]="true"
+            [draggableNodes]="true" 
             [droppableNodes]="true" 
             draggableScope="self" 
-            droppableScope="self">
+            droppableScope="self" (onNodeDrop)="onNodeDrop($event)">
                 <ng-template let-node pTemplate="default">
                     {{node.label}} ({{node.key}})
                 </ng-template>
             </p-tree>
+        </div>
+        <div class="alert alert-warning">
+            <p>Drag and drop of category will work only for single category(which not have any children), if you try to drag and drop category which have the children then it may break the system, we'll work on this later</p>
         </div>
     </div>
