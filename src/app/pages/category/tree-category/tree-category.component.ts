@@ -89,7 +89,7 @@ export class TreeCategoryComponent implements OnInit {
   constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
-    
+        
   }
 
    expandAll(){
@@ -115,13 +115,13 @@ export class TreeCategoryComponent implements OnInit {
 
 
     getAllCategory(){
+      this.loading = true;
       this.querySubscription = this.apollo
       .watchQuery<any>({
         query: GET_CATEGORIES
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading
-        
         this.categories = data.categories;
         
         this.updatedCategory = this.categories.map((obj: any)=>{
@@ -152,8 +152,7 @@ export class TreeCategoryComponent implements OnInit {
     
 
     onNodeDrop(event:any):any {
-      console.log("event fired");
-      console.log(event.dragNode.children.length);
+      this.loading = true;
         //get parent/drop node path
       if(event.dragNode.children.length == 0){
         this.querySubscription = this.apollo
@@ -161,19 +160,18 @@ export class TreeCategoryComponent implements OnInit {
           query: GET_CATEGORY,
           variables: {
             id: event.dropNode.key
-          }
+          },
+          fetchPolicy: 'no-cache',
+          errorPolicy: 'ignore'
         })
         .valueChanges.subscribe(({ data, loading }) => {
-          this.loading = loading
+          
           this.dragNodepath = data.category.path;
           
           this.newParent = data.category.id;
           this.newPath = this.dragNodepath+"/"+event.dragNode.key;
           
-          
-          console.log(event.dragNode.key);
-          console.log(this.newParent);
-          console.log(this.newPath);
+
           this.updateCategoryPath(this.newPath, this.newParent, event.dragNode.key);
         })
       }else{
@@ -193,7 +191,7 @@ export class TreeCategoryComponent implements OnInit {
         }
       })
       .subscribe((result: any) => {
-        
+        this.loading = false;
         if(result.data?.updateCategory){
           console.log("category updated");
         }
