@@ -44,7 +44,7 @@ export class SeoCategoryComponent implements OnChanges {
        .valueChanges.subscribe(({ data, loading }) => {
         console.log("ASdasd");
          console.log(data);
-         this.alternatName = JSON.parse(data.category_seo.alternat_name);
+         //this.alternatName = JSON.parse(data.category_seo.alternat_name);
           
           
        })
