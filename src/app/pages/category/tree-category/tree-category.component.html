@@ -29,6 +29,8 @@
             droppableScope="self"
             (onNodeDrop)="onNodeDrop($event)"
             [loading]="loading"
+            selectionMode="single" 
+            (onNodeSelect)="onSelectCategory($event)"
             >
                 <ng-template let-node pTemplate="default">
                     {{node.label}} ({{node.key}})
@@ -36,6 +38,6 @@
             </p-tree>
         </div>
         <div class="alert alert-warning">
-            <p>Drag and drop of category will work only for single category(which not have any children), if you try to drag and drop category which have the children then it may break the system, we'll work on this later</p>
+            <p>Drag and drop of category will work only for single category(which not have any children)</p>
         </div>
     </div>

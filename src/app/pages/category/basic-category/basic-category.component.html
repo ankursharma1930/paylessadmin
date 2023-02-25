@@ -1,0 +1,33 @@
+<form class="row g-3 mt-4">
+    <div class="col-md-3">
+        <label for="inputName5" class="form-label fw-bold">Category Name</label>
+        <input type="text" class="form-control" id="category_name" [(ngModel)]="catname" name="catname" 
+            placeholder="Enter Categor Name">
+            
+    </div>
+    <div class="row g-2">
+        <div class="col-md-3">
+            <label for="inputEmail5" class="form-label fw-bold">Link To</label>
+            <input type="text" class="form-control" id="link_to" [(ngModel)]="link_to" name="link_to"
+                placeholder="Enter hot link categor here">
+        </div>
+        <div class="col-md-3 ms-5">
+            <label for="inputPassword5" class="form-label fw-bold">Link Filtered By</label>
+            <input type="text" class="form-control" id="link_filter_by" placeholder="http://" [(ngModel)]="link_filter" name="link_filter">
+        </div>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-md-3">
+            <label for="inputEmail5" class="form-label fw-bold">Product Naming Formula</label>
+            <input type="text" class="form-control" id="product_name_formula"
+                placeholder="Enter product naming formula" [(ngModel)]="product_name_formula" name="product_name_formula">
+        </div>
+        <div class="col-md-3 ms-5">
+            <label for="inputPassword5" class="form-label fw-bold">Product Name Suffix</label>
+            <input type="text" class="form-control" id="product_name_suffix" [(ngModel)]="product_name_suffix" name="product_name_suffix"
+                placeholder="Enter product name suffix">
+        </div>
+    </div>
+
+</form>

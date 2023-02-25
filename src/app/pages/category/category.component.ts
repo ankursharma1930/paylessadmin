@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
+  catId:string = ''
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  getCatId(catId:string){
+    this.catId = catId
+    console.log("this is in parent"+ this.catId);
+  }
 }

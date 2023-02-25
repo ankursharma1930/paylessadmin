@@ -11,54 +11,23 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-    <app-tree-category></app-tree-category>
+    <app-tree-category (catIdEvent)="getCatId($event)" ></app-tree-category>
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Multi Columns Form</h5>
-                        <button type="button" class="btn btn-primary">Add Root Category</button><button type="button"
-                            class="btn btn-primary ms-5">Add Sub Category</button>
+                        <button type="button" class="btn btn-primary">Add Root Category</button>
+                        <button type="button" class="btn btn-primary ms-5">Add Sub Category</button>
 
-                        <form class="row g-3 mt-4">
-                            <div class="col-md-3">
-                                <label for="inputName5" class="form-label fw-bold">Category Name</label>
-                                <input type="text" class="form-control" id="category_name"
-                                    placeholder="Enter Categor Name">
-                            </div>
-                            <div class="row g-2">
-                                <div class="col-md-3">
-                                    <label for="inputEmail5" class="form-label fw-bold">Link To</label>
-                                    <input type="text" class="form-control" id="link_to"
-                                        placeholder="Enter hot link categor here">
-                                </div>
-                                <div class="col-md-3 ms-5">
-                                    <label for="inputPassword5" class="form-label fw-bold">Link Filtered By</label>
-                                    <input type="text" class="form-control" id="link_filter_by" placeholder="http://">
-                                </div>
-                            </div>
-
-                            <div class="row g-2">
-                                <div class="col-md-3">
-                                    <label for="inputEmail5" class="form-label fw-bold">Product Naming Formula</label>
-                                    <input type="text" class="form-control" id="link_to"
-                                        placeholder="Enter product naming formula">
-                                </div>
-                                <div class="col-md-3 ms-5">
-                                    <label for="inputPassword5" class="form-label fw-bold">Product Name Suffix</label>
-                                    <input type="text" class="form-control" id="link_filter_by"
-                                        placeholder="Enter product name suffix">
-                                </div>
-                            </div>
-
-                        </form>
+                        <app-basic-category [catId]="catId"></app-basic-category>
 
                     </div>
 
 
                     <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <app-seo-category></app-seo-category>
+                        <app-seo-category [catId]="catId"></app-seo-category>
                         <app-filter-category></app-filter-category>
                         <app-supplier-category></app-supplier-category>
                     </div>

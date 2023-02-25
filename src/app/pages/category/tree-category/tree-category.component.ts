@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { TreeNode } from 'primeng/api';
 import { TreeDragDropService, TreeNodeDragEvent  } from 'primeng/api';
 import { Apollo, gql } from 'apollo-angular';
 import { Subject, Subscription } from 'rxjs';
+
 
 interface Category {
   id: number;
@@ -58,8 +59,9 @@ const UPDATE_CATEGORY = gql`
   providers: [TreeDragDropService]
 })
 export class TreeCategoryComponent implements OnInit {
-  files1: TreeNode[] = [];
-	files2: TreeNode[] = [];
+  
+  @Output() catIdEvent = new EventEmitter<string>();
+
   nodes: TreeNode[] = [
     {
       key:"1",
@@ -118,7 +120,9 @@ export class TreeCategoryComponent implements OnInit {
       this.loading = true;
       this.querySubscription = this.apollo
       .watchQuery<any>({
-        query: GET_CATEGORIES
+        query: GET_CATEGORIES,
+        fetchPolicy: 'no-cache',
+        errorPolicy: 'ignore'
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading
@@ -202,6 +206,12 @@ export class TreeCategoryComponent implements OnInit {
         },
         
       );
+    }
+
+    onSelectCategory(event:any){
+      console.log(event.node.key)
+      console.log(event.node.label)
+      this.catIdEvent.emit(event.node.key);
     }
 
 }

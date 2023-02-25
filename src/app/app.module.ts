@@ -36,6 +36,7 @@ import { SeoCategoryComponent } from './pages/category/seo-category/seo-category
 import { FilterCategoryComponent } from './pages/category/filter-category/filter-category.component';
 import { TreeCategoryComponent } from './pages/category/tree-category/tree-category.component';
 import { SupplierCategoryComponent } from './pages/category/supplier-category/supplier-category.component';
+import { BasicCategoryComponent } from './pages/category/basic-category/basic-category.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login' },
@@ -68,7 +69,8 @@ const appRoutes: Routes = [
     SeoCategoryComponent,
     FilterCategoryComponent,
     TreeCategoryComponent,
-    SupplierCategoryComponent
+    SupplierCategoryComponent,
+    BasicCategoryComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
