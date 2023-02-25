@@ -151,10 +151,11 @@ export class TreeCategoryComponent implements OnInit {
     }
     
 
-    onNodeDrop(event:any) {
+    onNodeDrop(event:any):any {
       console.log("event fired");
-      console.log(event);
+      console.log(event.dragNode.children.length);
         //get parent/drop node path
+      if(event.dragNode.children.length == 0){
         this.querySubscription = this.apollo
         .watchQuery<any>({
           query: GET_CATEGORY,
@@ -175,7 +176,10 @@ export class TreeCategoryComponent implements OnInit {
           console.log(this.newPath);
           this.updateCategoryPath(this.newPath, this.newParent, event.dragNode.key);
         })
-
+      }else{
+        alert("This node may have childern, this drop will not get save in database")
+        return false;
+      }
     }
 
     updateCategoryPath(path:any, parent:any, id:any){

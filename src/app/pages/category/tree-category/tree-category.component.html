@@ -26,7 +26,10 @@
             [draggableNodes]="true" 
             [droppableNodes]="true" 
             draggableScope="self" 
-            droppableScope="self" (onNodeDrop)="onNodeDrop($event)">
+            droppableScope="self"
+            (onNodeDrop)="onNodeDrop($event)"
+            [loading]="loading"
+            >
                 <ng-template let-node pTemplate="default">
                     {{node.label}} ({{node.key}})
                 </ng-template>
