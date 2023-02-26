@@ -1,10 +1,14 @@
-<form class="row g-3 mt-4" (ngSubmit)="onSubmit()">
+<form class="row g-3 mt-2" (ngSubmit)="onSubmit()">
     <p-toast></p-toast>
     <div class="col-md-3">
         <label for="inputName5" class="form-label fw-bold">Category Name</label>
         <input type="text" (keyup)="onKeyUp($event)" class="form-control" id="category_name" [(ngModel)]="catname" name="catname"
             placeholder="Enter Categor Name">
 
+    </div>
+    <div class="col-md-6 ">
+        <label for="inputName5" class="form-label fw-bold float-end" *ngIf="catId">Category ID: {{catId}}</label>
+        
     </div>
     <div class="row g-2">
         <div class="col-md-3">

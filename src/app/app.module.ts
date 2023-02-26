@@ -11,6 +11,8 @@ import { InMemoryCache } from '@apollo/client/core'
 
 import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -82,6 +84,8 @@ const appRoutes: Routes = [
     DataTablesModule,
     TreeModule,
     ButtonModule,
+    ToastModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}
