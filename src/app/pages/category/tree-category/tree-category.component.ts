@@ -62,14 +62,7 @@ export class TreeCategoryComponent implements OnInit {
   
   @Output() catIdEvent = new EventEmitter<string>();
 
-  nodes: TreeNode[] = [
-    {
-      key:"1",
-      label: "Default Category",
-      expandedIcon: "pi pi-folder-open",
-      collapsedIcon: "pi pi-folder"
-    }
-  ];
+  nodes: TreeNode[] = [];
   loading: boolean = true;
   category: any
   name!: string;
@@ -138,7 +131,7 @@ export class TreeCategoryComponent implements OnInit {
           };
         })
         this.newCategory = this.updatedCategory;
-        this.nodes[0].children = this.getChildren(this.parentId)
+        this.nodes = this.getChildren(this.parentId)
         
       })
     }
@@ -180,7 +173,7 @@ export class TreeCategoryComponent implements OnInit {
         })
       }else{
         alert("This node may have childern, this drop will not get save in database")
-        return false;
+        window.location.reload();
       }
     }
 
@@ -209,8 +202,6 @@ export class TreeCategoryComponent implements OnInit {
     }
 
     onSelectCategory(event:any){
-      console.log(event.node.key)
-      console.log(event.node.label)
       this.catIdEvent.emit(event.node.key);
     }
 
