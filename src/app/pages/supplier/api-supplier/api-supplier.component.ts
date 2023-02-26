@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import {MessageService} from 'primeng/api';
 
 const apiUrl = "https://api.promodata.com.au/suppliers/";
 const apitoken = "YjNiZTkxZWJkZDRkNWYzODo5MzkwMjg0M2Q3NjlkMWU3ZDI2MjdlMTkxMzk0YmQwNQ";
@@ -15,7 +15,8 @@ declare var window:any;
 @Component({
   selector: 'app-api-supplier',
   templateUrl: './api-supplier.component.html',
-  styleUrls: ['./api-supplier.component.css']
+  styleUrls: ['./api-supplier.component.css'],
+  providers: [MessageService]
 })
 
 export class ApiSupplierComponent implements OnInit {
@@ -28,7 +29,7 @@ export class ApiSupplierComponent implements OnInit {
   openModal:any;
   getclass!:string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.openModal = new window.bootstrap.Modal(
@@ -39,17 +40,16 @@ export class ApiSupplierComponent implements OnInit {
   onSubmit(){
     this.error = false;
     if(!this.id){
-      this.error = true;
-      this.getclass = "danger";
-      this.message = "Supplier ID is missing!"
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Supplier ID is missing!', sticky: true});
     }else{
+      this.messageService.clear();
       this.getData(this.id);
-      
     }
     // this.message = 
   }
 
   getData(id:any):any{
+    this.messageService.add({severity:'info', summary: 'Processing', detail: 'Please wait, we are fetching the data..', sticky: true});
     this.waiting = true;
     this.message = "Please wait we are fetching the data...";
     this.getclass = "primary";
@@ -57,8 +57,8 @@ export class ApiSupplierComponent implements OnInit {
     this.http.get(apiUrl+id, { headers })
     .subscribe(data => {
       this.alldata = data;
-      this.message = this.alldata.msg;
-      this.getclass = "success";
+      //this.messageService.add({severity:'success', summary: 'Success', detail: 'Here is supplier details'});
+      this.messageService.clear();
       this.openModal.show();
     }
     ,

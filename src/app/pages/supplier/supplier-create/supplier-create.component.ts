@@ -10,7 +10,7 @@ mutation createSupplier($name: String, $code: String, $country: String, $currenc
   }
 }
 `;
-
+declare var window:any;
 @Component({
   selector: 'app-supplier-create',
   templateUrl: './supplier-create.component.html',
@@ -23,14 +23,23 @@ export class SupplierCreateComponent implements OnInit {
   country!: string;
   currency!: string;
   postcode!: string;
-  
+  createModal:any;
   loading = true;
   error:any;
 
   constructor(private apollo: Apollo) { }
 
   ngOnInit(): void {
+    this.createModal = new window.bootstrap.Modal(
+      document.getElementById('createModal')
+    );
   }
+
+  openCreateModal(){
+    this.createModal.show();
+  }
+
+
   onSubmit(){
     this.apollo
       .mutate({

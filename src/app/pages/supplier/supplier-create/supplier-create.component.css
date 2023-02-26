@@ -1,0 +1,7 @@
+.create_supplier{
+    background: #11d097;
+    border: none;
+}
+.create_supplier:active{
+    background: #11d097;
+}

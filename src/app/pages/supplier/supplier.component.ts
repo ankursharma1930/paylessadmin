@@ -75,7 +75,6 @@ export class SupplierComponent implements OnInit {
 
   constructor(private apollo: Apollo) { }
   deleteModal:any;
-  createModal:any;
   updateModal:any;
   idToDelete:number = 0;
 
@@ -84,9 +83,7 @@ export class SupplierComponent implements OnInit {
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('deleteModal')
     );
-    this.createModal = new window.bootstrap.Modal(
-      document.getElementById('createModal')
-    );
+    
     
     this.updateModal = new window.bootstrap.Modal(
       document.getElementById('updateModal')
@@ -113,10 +110,7 @@ export class SupplierComponent implements OnInit {
     this.idToDelete = id;
     this.deleteModal.show();
   }
-  openCreateModal(){
-    this.createModal.show();
-  }
-
+  
 
   openUpdateModal(id:number){
     this.idToDelete = id;

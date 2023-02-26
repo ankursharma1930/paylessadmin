@@ -1,12 +1,7 @@
+<p-toast></p-toast>
 <form class="row gx-3 gy-2 align-items-center mb-4" (ngSubmit)="onSubmit()">
     <div class="row">
         <b>Fetch Supplier data by ID from Promodata API</b>
-
-        <div class="alert alert-{{getclass}} col-sm-3 ms-2 alert-dismissible fade show" *ngIf="getclass" role="alert">
-            {{message}}
-            
-        </div>
-        
     </div>
     <div class="row">
         <div class="col-sm-3">
@@ -14,11 +9,12 @@
             <input type="text" class="form-control" id="specificSizeInputName" placeholder="Enter Supplier ID" name="id"
                 [(ngModel)]="id">
         </div>
-        <div class="col-sm-3">
-            <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-repeat"></i> Fetch Supplier</button>
-        </div>
-        <div class="col-sm-6 float-end">
+        <div class="col-sm-7">
+            <button type="submit" class="btn btn-primary me-2"><i class="bi bi-arrow-repeat"></i> View Supplier Detail - PromoData</button>
             <app-api-all-supplier></app-api-all-supplier>
+        </div>
+        <div class="col-sm-2">
+            <app-supplier-create></app-supplier-create>
         </div>
     </div>
 </form>

@@ -1,8 +1,8 @@
-<button type="button" class="btn btn-primary ms-4 float-end" (click)="fetchSupplier()"><i
-        class="bi bi-arrow-repeat"></i> Fetch All Supplier</button>
+<button type="button" class="btn btn-primary" (click)="fetchSupplier()"><i
+        class="bi bi-arrow-repeat"></i> View All Suppliers - PromoData</button>
 
 
-
+<p-toast></p-toast>
 <div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
@@ -48,11 +48,11 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                     (click)="ngOnDestroy()">Close</button>
-                <button type="button" class="btn btn-primary"
+                <!-- <button type="button" class="btn btn-primary"
                 (click)="addInSystem(alldata)">Save/Update All Suppliers in your local system </button>
                 <div class="alert alert-info col-sm-11 ms-2 alert-dismissible fade show" role="alert">
                     We'll remove the Save/Update button later if not needed, i added this button just for the feature and only limited details of supplier will get save on our DB.
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Apollo, gql } from 'apollo-angular';
-import { ThisReceiver } from '@angular/compiler';
+import {MessageService} from 'primeng/api';
 
 
 const UPSERT_SUPPLIER = gql`
@@ -26,7 +26,8 @@ declare var window: any;
 @Component({
   selector: 'app-api-all-supplier',
   templateUrl: './api-all-supplier.component.html',
-  styleUrls: ['./api-all-supplier.component.css']
+  styleUrls: ['./api-all-supplier.component.css'],
+  providers: [MessageService]
 })
 export class ApiAllSupplierComponent implements OnInit, OnDestroy {
 
@@ -50,7 +51,7 @@ export class ApiAllSupplierComponent implements OnInit, OnDestroy {
   complete: any;
   private querySubscription: Subscription | undefined
 
-  constructor(private http: HttpClient, private apollo: Apollo) { }
+  constructor(private http: HttpClient, private apollo: Apollo,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.supplierModal = new window.bootstrap.Modal(
@@ -63,23 +64,18 @@ export class ApiAllSupplierComponent implements OnInit, OnDestroy {
   }
 
   fetchSupplier() {
-    this.message = "Please wait we are fetching the data...";
-    this.getclass = "primary";
-    this.message = "Please wait we are fetching the data!";
+    this.messageService.add({severity:'info', summary: 'Processing', detail: 'Please wait, we are fetching the data..', sticky: true});
     this.supplierModal.show();
     //this.http.get('/api/suppliers/', { headers })    //use apiurl later instead of /api/
     this.http.get(apiUrl, { headers })
       .subscribe(apidata => {
         this.alldata = apidata;
-        this.message = this.alldata.msg;
-        this.getclass = "success";
+        this.messageService.clear();
         this.alldata = this.alldata.data
         this.dtTrigger.next(null);
       },
         error => {
-          this.getclass = "danger";
-          this.message = error.statusText;
-
+          this.messageService.add({severity:'error', summary: 'Error', detail: error.statusText, sticky: true});
         }
       );
   }
