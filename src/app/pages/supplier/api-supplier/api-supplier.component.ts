@@ -15,8 +15,7 @@ declare var window:any;
 @Component({
   selector: 'app-api-supplier',
   templateUrl: './api-supplier.component.html',
-  styleUrls: ['./api-supplier.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./api-supplier.component.css']
 })
 
 export class ApiSupplierComponent implements OnInit {

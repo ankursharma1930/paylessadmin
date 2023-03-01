@@ -13,6 +13,7 @@ import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,6 +40,7 @@ import { FilterCategoryComponent } from './pages/category/filter-category/filter
 import { TreeCategoryComponent } from './pages/category/tree-category/tree-category.component';
 import { SupplierCategoryComponent } from './pages/category/supplier-category/supplier-category.component';
 import { BasicCategoryComponent } from './pages/category/basic-category/basic-category.component';
+
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent, title: 'Login' },
@@ -91,7 +93,7 @@ const appRoutes: Routes = [
       {enableTracing: true}
     )
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

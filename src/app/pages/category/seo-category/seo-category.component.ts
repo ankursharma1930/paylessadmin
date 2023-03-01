@@ -120,8 +120,7 @@ mutation upsertCategorySeo($id: ID!, $category_id: Int!,
 @Component({
   selector: 'app-seo-category',
   templateUrl: './seo-category.component.html',
-  styleUrls: ['./seo-category.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./seo-category.component.css']
 })
 export class SeoCategoryComponent implements OnChanges {
 

@@ -26,8 +26,7 @@ declare var window: any;
 @Component({
   selector: 'app-api-all-supplier',
   templateUrl: './api-all-supplier.component.html',
-  styleUrls: ['./api-all-supplier.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./api-all-supplier.component.css']
 })
 export class ApiAllSupplierComponent implements OnInit, OnDestroy {
 

@@ -54,8 +54,8 @@ mutation upsertCategoryFilters($id: ID!, $category_id: Int!,
 @Component({
   selector: 'app-filter-category',
   templateUrl: './filter-category.component.html',
-  styleUrls: ['./filter-category.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./filter-category.component.css']
+  
 })
 export class FilterCategoryComponent implements OnChanges {
 
