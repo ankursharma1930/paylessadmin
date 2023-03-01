@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="accordion-item">
     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -9,31 +10,76 @@
     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
         aria-labelledby="panelsStayOpen-headingTwo">
         <div class="accordion-body">
+            <form class="row g-3 mt-2" (ngSubmit)="onSubmitFilter()">
             <div class="row mt-4 g-2">
                 <div class="col-md-9">
                     <label for="inputName5" class="form-label fw-bold">Type</label>
-                    <textarea class="form-control" id="filter_type" rows="3" placeholder="Enter comma seprated types"></textarea>
+                    <textarea (keyup)="onKeyUp($event)" class="form-control bg-light" id="type" name="type" [(ngModel)]="type" rows="3" placeholder="Enter comma seprated types"></textarea>
                 </div>
                 <div class="col-md-9">
                     <label for="inputName5" class="form-label fw-bold">Style</label>
-                    <textarea class="form-control" id="filter_style" rows="3" placeholder="Enter comma seprated styles"></textarea>
+                    <textarea (keyup)="onKeyUp($event)" class="form-control bg-light" id="style" name="style" [(ngModel)]="style" rows="3" placeholder="Enter comma seprated styles"></textarea>
                 </div>
             </div>
             <div class="row mt-1 g-2">
-                <div class="col-md-4">
+                <div class="col-md-9">
                     <label for="inputName5" class="form-label fw-bold">Gender Fit</label>
-                    <select class="form-select" multiple aria-label="multiple select example">
-                        <option selected>Select Gender Fits</option>
-                        <option value="1">Mens</option>
-                        <option value="2">Ladies</option>
-                        <option value="3">Kids</option>
-                      </select>
+                    <div class="row">
+                    <div class="col-md-3">
+                        <select (change)="onChange($event)" class="form-select bg-light" aria-label="select example" id="gender_fit1" name="gender_fit1" [(ngModel)]="gender_fit1">
+                            
+                            <option value="Mens">Mens</option>
+                            <option value="Ladies">Ladies</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Unisex">Unisex</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        
+                        <select (change)="onChange($event)" class="form-select bg-light" aria-label="select example" id="gender_fit2" name="gender_fit2" [(ngModel)]="gender_fit2">
+                            
+                            <option value="Mens">Mens</option>
+                            <option value="Ladies">Ladies</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Unisex">Unisex</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        
+                        <select (change)="onChange($event)" class="form-select bg-light" aria-label="select example" id="gender_fit3" name="gender_fit3" [(ngModel)]="gender_fit3">
+                            
+                            <option value="Mens">Mens</option>
+                            <option value="Ladies">Ladies</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Unisex">Unisex</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        
+                        <select (change)="onChange($event)" class="form-select bg-light" aria-label="select example" id="gender_fit4" name="gender_fit4" [(ngModel)]="gender_fit4">
+                            
+                            <option value="Mens">Mens</option>
+                            <option value="Ladies">Ladies</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Unisex">Unisex</option>
+                        </select>
+                    </div>
+                </div>
+                    
                 </div>
                 <div class="col-md-9">
                     <label for="inputName5" class="form-label fw-bold">Materials(for filter)</label>
-                    <textarea class="form-control" id="filter_style" rows="3" placeholder="Enter comma seprated meterials"></textarea>
+                    <textarea (keyup)="onKeyUp($event)" class="form-control bg-light" id="material" name="material" [(ngModel)]="material" rows="3" placeholder="Enter comma seprated meterials"></textarea>
                 </div>
             </div>
+            <div class="row g-2" *ngIf="showSaveButton">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Update Filter Data</button>
+                </div>
+            </div>
+            </form>
+
+
         </div>
     </div>
 </div>
