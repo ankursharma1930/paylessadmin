@@ -52,6 +52,7 @@ export class BasicCategoryComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     
      if(changes['catId'] && !changes['catId'].firstChange){
+      this.messageService.add({severity:'info', summary: 'Processing', detail: 'Please wait, its in progress..'});
        this.apollo
         .watchQuery<any>({
           query: GET_CATEGORY,
@@ -62,7 +63,7 @@ export class BasicCategoryComponent implements OnChanges {
           errorPolicy: 'ignore'
         })
         .valueChanges.subscribe(({ data, loading }) => {
-          console.log(data);
+          this.messageService.clear();
           this.catname = data.category.name
           this.link_to = data.category.link_to
           this.link_filter = data.category.link_filter
@@ -71,6 +72,7 @@ export class BasicCategoryComponent implements OnChanges {
 
         })
      }
+     this.showSaveButton = false;
   }
 
   onKeyUp(event:any) { 

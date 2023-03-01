@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-
+import {MessageService} from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Apollo, gql} from 'apollo-angular';
@@ -19,7 +19,8 @@ mutation login($email: String!, $password: String!, $device: String!) {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [MessageService]
 })
 
 export class LoginComponent {
@@ -35,7 +36,7 @@ export class LoginComponent {
   error:any;
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   
-  constructor(private apollo: Apollo){
+  constructor(private apollo: Apollo,private messageService: MessageService){
     localStorage.removeItem("token");
     localStorage.removeItem("data");
     if (localStorage.getItem("token")) this.isAuthenticated.next(true);
@@ -45,11 +46,10 @@ export class LoginComponent {
   onSubmit():any{
     
     if(!this.email || !this.password){
-      this.class = "danger";
-      this.message = "Required fields are missing!";
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Require Field is missing!'});
       return false;
     }
-
+    this.messageService.add({severity:'info', summary: 'Processing', detail: 'Please wait, we are checking..', sticky: true});
     this.apollo
       .mutate({
         mutation: login,
@@ -62,17 +62,16 @@ export class LoginComponent {
       .subscribe((result: any) => {
         
         if(result.data?.login){
+          this.messageService.add({severity:'success', summary: 'Welcome', detail: 'Welcom to the panel!'});
           localStorage.setItem("token", result.data?.login);
           this.isAuthenticated.next(true);
-          //this.getMe();
           window.location.href = "/dashboard";
         }
       },
         error => {
-          this.class = "danger";
-          this.message = "Please cross check your credentials!";
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Something is wrong, please cross check your detail.'});
           return false;
-          //console.log("there was an error sending the query", error);
+    
         }
       );
   
