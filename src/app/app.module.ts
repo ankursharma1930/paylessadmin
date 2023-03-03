@@ -40,6 +40,7 @@ import { FilterCategoryComponent } from './pages/category/filter-category/filter
 import { TreeCategoryComponent } from './pages/category/tree-category/tree-category.component';
 import { SupplierCategoryComponent } from './pages/category/supplier-category/supplier-category.component';
 import { BasicCategoryComponent } from './pages/category/basic-category/basic-category.component';
+import { CreateCategoryComponent } from './pages/category/create-category/create-category.component';
 
 
 const appRoutes: Routes = [
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     FilterCategoryComponent,
     TreeCategoryComponent,
     SupplierCategoryComponent,
-    BasicCategoryComponent
+    BasicCategoryComponent,
+    CreateCategoryComponent
   ],
   imports: [
     ApolloModule, HttpClientModule,
