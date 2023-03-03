@@ -26,6 +26,8 @@ const GET_CATEGORIES = gql`
     name
     path
     parent_id
+    link_to
+    link_filter
   }
   }
 `;
@@ -119,8 +121,13 @@ export class TreeCategoryComponent implements OnInit {
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.loading = loading
-        this.categories = data.categories;
-        
+      for(let item of Object.keys(data.categories)) {
+          if(data.categories[item].link_to || data.categories[item].link_filter){
+            data.categories[item].name = data.categories[item].name+" - HotLink";
+          }
+      }
+      this.categories = data.categories;
+
         this.updatedCategory = this.categories.map((obj: any)=>{
           const { id, name, path, parent_id  } = obj;
           return { 
