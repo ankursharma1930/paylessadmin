@@ -1,10 +1,10 @@
 
 <div *ngIf="catId">
-    <div class="row  mt-4 p-4">
+    <div class="row  mt-4 p-4" >
         <div class="col-6">
-            <h5 class="text-primary">Suppliers For <span class="text-dark fw-bold">'Caps'</span></h5>
+            <h5 class="text-primary">Suppliers For <span class="text-dark fw-bold">'{{catName}}'</span></h5>
         </div>
-        <div class="col-6"><button class="btn btn-primary float-end ">Add More Supllier</button></div>
+        <div class="col-6"><button class="btn btn-primary float-end " (click)="fetchSupplier()">Add More Supllier <i class="bi bi-plus-circle"></i></button></div>
     </div>
 
 
@@ -22,6 +22,41 @@
             <div class="accordion-body">
 
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-small">
+        <div class="modal-content">
+            <div class="modal-header">
+               
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    ></button>
+            </div>
+            <div class="modal-body">
+
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                class="table table-borderless datatable table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Supplier Name</th>
+                        <th scope="col">Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of supplierCompleteData">
+                        <td>{{data.id}}</td>
+                        <td>{{data.name}}</td>
+                        <td><button type="button" class="btn btn-primary">Add <i class="bi bi-plus-circle"></i></button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            </div>
+           
         </div>
     </div>
 </div>
