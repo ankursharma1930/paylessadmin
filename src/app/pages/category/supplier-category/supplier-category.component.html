@@ -49,7 +49,7 @@
                     <tr *ngFor="let data of supplierCompleteData">
                         <td>{{data.id}}</td>
                         <td>{{data.name}}</td>
-                        <td><button type="button" class="btn btn-primary">Add <i class="bi bi-plus-circle"></i></button></td>
+                        <td><button type="button" class="btn btn-primary" (click)="addSupplier($event,data.id)" >Add <i class="bi bi-plus-circle"></i></button></td>
                     </tr>
 
                 </tbody>
