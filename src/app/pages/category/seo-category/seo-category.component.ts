@@ -170,7 +170,6 @@ export class SeoCategoryComponent implements OnChanges {
        .valueChanges.subscribe(({ data, loading }) => {
         
         if(data.category_seo){
-          console.log("ASd");
           this.seo_id = data.category_seo.id;
           this.alternat_name1 = data.category_seo.alternat_name1;
           this.alternat_name2 = data.category_seo.alternat_name2;

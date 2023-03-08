@@ -1,55 +1,17 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { Apollo, gql } from 'apollo-angular';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy, } from '@angular/core';
+import {  FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { Apollo } from 'apollo-angular';
 import { MessageService } from 'primeng/api';
-import { Subject, Subscription } from 'rxjs';
+import { first, Subject, Subscription } from 'rxjs';
+import { GET_CATEGORY_SUPPLIER,GET_CATEGORY_SUPPLIER_BYID, GET_CATEGORY, GET_FILTER_SUPPLIERS, CREATE_CATEGORY_SUPPLIER, UPDATE_CATEGORY_SUPPLIER } from './supplier-category-variables';
 
 
-const GET_CATEGORY_SUPPLIER = gql`
-  query category_supplier($category_id: Int!){
-    category_supplier(category_id: $category_id){
-      id
-      category_id
-      supplier{
-        id
-        name
-      }
-    }
-  }
-`
-
-const GET_CATEGORY = gql`
-  query category($id: ID!){
-    category(id: $id){
-      name
-    }
-  }
-`
-
-const GET_SUPPLIERS = gql`
-  query suppliers {
-    suppliers {
-    id
-    name
-  }
-  }
-`;
-
-const GET_FILTER_SUPPLIERS = gql`
-  query fsuppliers($excludedIds: [ID!]) {
-    fsuppliers(excludedIds: $excludedIds) {
-    id
-    name
-  }
-  }
-`;
-
-const CREATE_CATEGORY_SUPPLIER = gql`
-mutation createCategorySupplier($supplier_id: ID!, $category_id: ID! ) {
-  createCategorySupplier(supplier_id: $supplier_id, category_id: $category_id) {
-    id
-  }
+interface Leadtime {
+  first?: string,
+  second?:string,
+  third?:string,
+  forth?:string
 }
-`;
 
 declare var window: any;
 @Component({
@@ -66,14 +28,22 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
   supplier: any
   supplierCompleteData: any;
   savedSuppliers: Array<String> = [];
+  clickedSupplierId:string=""
+  lead_time: Leadtime = {};
+  first_lead:string=''
+  sec_lead:string=''
+  third_lead:string=''
+  forth_lead:string=''
+ 
 
   private querySubscription: Subscription | undefined
 
-  constructor(private apollo: Apollo, private messageService: MessageService) { }
+  constructor(private apollo: Apollo, private messageService: MessageService,private fb: FormBuilder) { }
 
 
   ngOnChanges(changes: SimpleChanges): void {
     this.savedSuppliers = [];
+    this.supplier = [];
     if (changes['catId'] && !changes['catId'].firstChange) {
       this.supplierModal = new window.bootstrap.Modal(
         document.getElementById('supplierModal')
@@ -83,8 +53,6 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
         pagingType: 'full_numbers',
         pageLength: 10
       };
-
-
       //Fetch category name
       this.apollo
         .watchQuery<any>({
@@ -98,36 +66,8 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
           this.catName = data.category.name;
         }
         )
-
-
-
-
-      this.apollo
-        .watchQuery<any>({
-          query: GET_CATEGORY_SUPPLIER,
-          variables: {
-            category_id: Number(this.catId)
-          },
-          fetchPolicy: 'no-cache',
-          errorPolicy: 'ignore'
-        })
-        .valueChanges.subscribe(({ data, loading }) => {
-          if (data.category_supplier.length) {
-            this.supplier = data.category_supplier;
-            for (var val of data.category_supplier) {
-              this.savedSuppliers.push(val.supplier.id)
-
-            }
-          }
-        },
-          error => {
-            this.messageService.clear();
-            this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Filter data!' });
-          }
-        )
-
-
-
+      //Fetch category supplier 
+      this.getSupplier();
     }
 
   }
@@ -135,8 +75,6 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
   //This function is for to fetch the all supplier inpopup
 
   fetchSupplier() {
-
-
     this.apollo
       .watchQuery<any>({
         query: GET_CATEGORY_SUPPLIER,
@@ -199,7 +137,7 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
     
   }
 
-  //This function is to create a new supplier for tab
+  //This function is to create a new supplier from tab
 
   addSupplier(event: any, id: any) {
     this.apollo
@@ -214,6 +152,8 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
         this.messageService.clear();
         if (result.data?.createCategorySupplier) {
           this.messageService.add({ severity: 'success', summary: 'yahooo!', detail: 'Supplier Added' });
+
+          this.getSupplier();
         }
       },
         error => {
@@ -221,7 +161,95 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
         }
       );
   }
+
+
+  getSupplier(){
+    this.apollo
+          .watchQuery<any>({
+            query: GET_CATEGORY_SUPPLIER,
+            variables: {
+              category_id: Number(this.catId)
+            },
+            fetchPolicy: 'no-cache',
+            errorPolicy: 'ignore'
+          })
+          .valueChanges.subscribe(({ data, loading }) => {
+            if (data.category_supplier.length) {
+              this.supplier = data.category_supplier;
+              for (var val of data.category_supplier) {
+                this.savedSuppliers.push(val.supplier.id)
+              }
+            }
+          },
+            error => {
+              this.messageService.clear();
+              this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Filter data!' });
+            }
+          )
+  }
+
+
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
+
+
+  onSubmit(f:NgForm){
+    
+    this.lead_time = {first:this.first_lead,second:this.sec_lead,third:this.third_lead,forth:this.forth_lead}
+    
+    this.apollo
+      .mutate({
+        mutation: UPDATE_CATEGORY_SUPPLIER,
+        variables: {
+          id:this.clickedSupplierId,
+          category_id:this.catId,
+          lead_time:JSON.stringify(this.lead_time)
+          
+        }
+      })
+      .subscribe((result: any) => {
+        
+        if(result.data?.updateCategorySupplier){
+          this.messageService.clear();
+          this.messageService.add({severity:'success',  detail:'Category Supplier Updated!'});
+          
+        }
+      },
+        error => {
+          this.messageService.clear();
+          this.messageService.add({severity:'error',  detail:'Something is wrong, please refresh the page and try again'});
+        }
+      );
+
+  }
+
+  //Fetch category supplier using id, when select the particular supplier in accordin
+
+  fetchCategorySupplierData(categorySupplierId:any){
+    this.clickedSupplierId = categorySupplierId;
+    this.first_lead = this.sec_lead = this.third_lead = this.forth_lead = "";
+    this.apollo
+      .watchQuery<any>({
+        query: GET_CATEGORY_SUPPLIER_BYID,
+        variables: {
+          id: categorySupplierId
+        }
+        
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        if (data.particular_category_supplier) {
+          if(data.particular_category_supplier.lead_time){
+            this.lead_time = JSON.parse(data.particular_category_supplier.lead_time);
+            this.first_lead = this.lead_time.first?this.lead_time.first:''
+            this.sec_lead = this.lead_time.second?this.lead_time.second:''
+            this.third_lead = this.lead_time.third?this.lead_time.third:''
+            this.forth_lead = this.lead_time.forth?this.lead_time.forth:''
+        }
+        }
+      }
+      )
+  }
+
+
 }
