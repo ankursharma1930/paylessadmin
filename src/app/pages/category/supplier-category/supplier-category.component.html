@@ -26,31 +26,31 @@
     
                         <div class="col-md-3 text-center">
                             <label for="inputName5" class="form-label fw-bold">1</label>
-                            <input type="text" class="form-control" id="first_lead" name="first_lead" [(ngModel)]="first_lead"
-                                placeholder="Enter alternate Name" >
+                            <input type="text" class="form-control bg-light" id="first_lead" name="first_lead" [(ngModel)]="first_lead"
+                                placeholder="Enter Lead Time" >
                         </div>
                         <div class="col-md-3 ps-3 text-center">
                             <label for="inputName5" class="form-label fw-bold">2</label>
-                            <input type="text" class="form-control" [(ngModel)]="sec_lead"
+                            <input type="text" class="form-control bg-light" [(ngModel)]="sec_lead"
                                 id="alternat_name2" name="sec_lead" 
-                                placeholder="Enter alternate Name">
+                                placeholder="Enter Lead Time">
                         </div>
                         <div class="col-md-3 ps-3 text-center">
                             <label for="inputName5" class="form-label fw-bold">3</label>
-                            <input type="text" class="form-control"  id="alternat_name3" name="third_lead" [(ngModel)]="third_lead"
-                                placeholder="Enter alternate Name">
+                            <input type="text" class="form-control bg-light"  id="alternat_name3" name="third_lead" [(ngModel)]="third_lead"
+                                placeholder="Enter Lead Time">
                         </div>
                         <div class="col-md-3 ps-3 text-center">
                             <label for="inputName5" class="form-label fw-bold">4</label>
-                            <input type="text" class="form-control" [(ngModel)]="forth_lead"
+                            <input type="text" class="form-control bg-light" [(ngModel)]="forth_lead"
                                 id="alternat_name4" name="forth_lead" 
-                                placeholder="Enter alternate Name">
+                                placeholder="Enter Lead Time">
                         </div>
                     </div>
                     <div class="row g-2 mt-4 mb-4">
                         <div class="col-md-3">
                             <label for="inputName5" class="form-label fw-bold">Default Markup Level</label>
-                            <select (change)="onChangeMarkup()" class="form-select" placeholer="Enter From A-Z" name="default_mark_up" [(ngModel)]="default_mark_up">
+                            <select (change)="onChangeMarkup()" class="form-select bg-light" placeholer="Enter From A-Z" name="default_mark_up" [(ngModel)]="default_mark_up">
                                 <option>Select From A-Z</option>
                                 <option *ngFor="let a of printA_Z" [value]="a">{{a}}</option>
                             </select>
@@ -61,8 +61,64 @@
                         <div class="col-md-12"><label for="inputName5" class="form-label fw-bold">Markup Level By Quantity</label>
                         </div>
                         <div class="col-md-1 ps-3 text-center" *ngFor="let i of quantity_slab | slice:0:12">
-                            <label for="inputName5" class="form-label fw-bold">{{i.qty}}</label>
-                            <input type="text" [(ngModel)]="i.realvalue" class="form-control" name="{{i.qty}}"  >
+                            <label for="inputName5" class="form-label fw-bold ">{{i.qty}}</label>
+                            <input type="text" (keyup)="onKeyUpSlab(i)" [(ngModel)]="i.realvalue" class="form-control bg-light" name="{{i.qty}}"  >
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2 mt-4 mb-4">
+                        <div class="col-md-12">
+                            <label for="inputName5" class="form-label fw-bold">Select Available Branding Methods</label>
+                            <input type="text"  class="form-select bg-light" placeholer="Enter Branding  Method Tags" >
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-4 mb-4">
+                        <div class="col-md-4">
+                            <label for="inputName5" class="form-label fw-bold">Website Branding 1</label>
+                            <input type="text"  class="form-select bg-light" placeholer="Enter" >
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputName5" class="form-label fw-bold">Website Branding 2</label>
+                            <input type="text"  class="form-select bg-light" placeholer="Enter" >
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inputName5" class="form-label fw-bold">Website Branding 3</label>
+                            <input type="text"  class="form-select bg-light" placeholer="Enter" >
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-4 mb-4">
+                        <div class="col-md-12"><label for="inputName5" class="form-label fw-bold">Supplier Price Break</label>
+                        </div>
+                        <div class="col-md-1 ms-4 text-center" *ngFor="let j of all_price_break | slice:0:10">
+                            <label for="inputName5" class="form-label fw-bold">{{j.position}}</label>
+                            <input type="text" placeholder="Enter"  [(ngModel)]="j.realvalue" class="form-control bg-light" name="pricebreak{{j.position}}"  >
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-4 mb-4">
+                        <div class="col-md-4">
+                            <label for="inputName5" class="form-label fw-bold">Minimum Web Quantity</label>
+                            <input type="text"  class="form-control bg-light" placeholer="Enter minimum web quantity" [(ngModel)]="min_qty" name="min_qty">
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-4 mb-4">
+                        <div class="col-md-12"><label for="inputName5" class="form-label fw-bold">Web Quantity</label>
+                        </div>
+                        <div class="col-md-1 ps-3 text-center" *ngFor="let i of web_qty">
+                            <label for="inputName5" class="form-label fw-bold ">{{i.qty}}</label>
+                            <input type="text" [(ngModel)]="i.realvalue" class="form-control bg-light" name="web_qty{{i.qty}}"  >
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-4 mb-4">
+                        <div class="col-md-12"><label for="inputName5" class="form-label fw-bold">Brands Dropdown</label>
+                        </div>
+                        <div class="col-md-3 ps-3 text-center" *ngFor="let i of brands">
+                            <label for="inputName5" class="form-label fw-bold ">Brand {{i.position}}</label>
+                            <input type="text" [(ngModel)]="i.realvalue" class="form-control bg-light" name="brand{{i.position}}"  placeholder="Enter">
                         </div>
                     </div>
 

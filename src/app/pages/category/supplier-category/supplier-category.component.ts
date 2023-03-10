@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import { MessageService } from 'primeng/api';
 import { first, Subject, Subscription } from 'rxjs';
-import { QuantitySlab, DELETE_CATEGORY_SUPPLIER, GET_CATEGORY_SUPPLIER, GET_CATEGORY_SUPPLIER_BYID, GET_CATEGORY, GET_FILTER_SUPPLIERS, CREATE_CATEGORY_SUPPLIER, UPDATE_CATEGORY_SUPPLIER } from './supplier-category-variables';
+import { Brands, AllPriceBreak, QuantitySlab, DELETE_CATEGORY_SUPPLIER, GET_CATEGORY_SUPPLIER, GET_CATEGORY_SUPPLIER_BYID, GET_CATEGORY, GET_FILTER_SUPPLIERS, CREATE_CATEGORY_SUPPLIER, UPDATE_CATEGORY_SUPPLIER } from './supplier-category-variables';
 
 
 interface Leadtime {
@@ -37,8 +37,11 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
   forth_lead: string = ''
   printA_Z: Array<string> = []
   default_mark_up: string = ''
-  //mark_up_by_quantity: string[] = [];
-  quantity_slab: readonly any[] = QuantitySlab
+  quantity_slab:  any[] = QuantitySlab
+  all_price_break: any[] = AllPriceBreak
+  min_qty:string=''
+  web_qty: any[] = QuantitySlab
+  brands:any[] = Brands
   
 
   private querySubscription: Subscription | undefined
@@ -151,7 +154,10 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
         variables: {
           supplier_id: id,
           category_id: this.catId,
-          mark_up_by_quantity:JSON.stringify(QuantitySlab)
+          mark_up_by_quantity:JSON.stringify(QuantitySlab),
+          supplier_price_break:JSON.stringify(AllPriceBreak),
+          web_qty:JSON.stringify(QuantitySlab),
+          brand:JSON.stringify(Brands)
         }
         
       })
@@ -159,9 +165,7 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
         this.messageService.clear();
         if (result.data?.createCategorySupplier) {
           this.messageService.add({ severity: 'success', summary: 'yahooo!', detail: 'Supplier Added' });
-
           this.getSupplier();
-          console.log(QuantitySlab);
         }
       },
         error => {
@@ -217,7 +221,11 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
           category_id: this.catId,
           lead_time: JSON.stringify(this.lead_time),
           default_mark_up: this.default_mark_up,
-          mark_up_by_quantity:JSON.stringify(this.quantity_slab)
+          mark_up_by_quantity:JSON.stringify(this.quantity_slab),
+          supplier_price_break:JSON.stringify(this.all_price_break),
+          min_qty:this.min_qty,
+          web_qty:JSON.stringify(this.web_qty),
+          brand:JSON.stringify(this.brands)
         }
       })
       .subscribe((result: any) => {
@@ -225,7 +233,6 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
         if (result.data?.updateCategorySupplier) {
           this.messageService.clear();
           this.messageService.add({ severity: 'success', detail: 'Category Supplier Updated!' });
-          QuantitySlab.forEach(obj => delete obj.realvalue);
         }
       },
         error => {
@@ -242,7 +249,7 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
     this.clickedSupplierId = categorySupplierId;
     this.first_lead = this.sec_lead = this.third_lead = this.forth_lead = "";
     this.quantity_slab = QuantitySlab
-    console.log(QuantitySlab)
+    
     this.apollo
       .watchQuery<any>({
         query: GET_CATEGORY_SUPPLIER_BYID,
@@ -263,6 +270,10 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
           }
           this.default_mark_up = data.particular_category_supplier.default_mark_up ? data.particular_category_supplier.default_mark_up : "";
           this.quantity_slab = data.particular_category_supplier.mark_up_by_quantity?JSON.parse(data.particular_category_supplier.mark_up_by_quantity):[]
+          this.all_price_break = data.particular_category_supplier.supplier_price_break?JSON.parse(data.particular_category_supplier.supplier_price_break):[]
+          this.min_qty = data.particular_category_supplier.min_qty?data.particular_category_supplier.min_qty:''
+          this.web_qty = data.particular_category_supplier.web_qty?JSON.parse(data.particular_category_supplier.web_qty):[]
+          this.brands = data.particular_category_supplier.brand?JSON.parse(data.particular_category_supplier.brand):[]
         }
       }
       )
@@ -300,6 +311,19 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
 
   //onCHange markup level
   onChangeMarkup(){
+    this.quantity_slab.forEach(obj => {
+        obj.realvalue = this.default_mark_up;
+    });
     
+  }
+
+  //onkeyup slab
+  onKeyUpSlab(i:any){
+    
+    this.quantity_slab.forEach(obj => {
+      if(Number(obj.qty) >= Number(i.qty)){
+        obj.realvalue = i.realvalue;
+      }
+  });
   }
 }
