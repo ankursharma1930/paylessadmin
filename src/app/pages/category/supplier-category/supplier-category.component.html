@@ -51,7 +51,6 @@
                         <div class="col-md-3">
                             <label for="inputName5" class="form-label fw-bold">Default Markup Level</label>
                             <select (change)="onChangeMarkup()" class="form-select bg-light" placeholer="Enter From A-Z" name="default_mark_up" [(ngModel)]="default_mark_up">
-                                <option>Select From A-Z</option>
                                 <option *ngFor="let a of printA_Z" [value]="a">{{a}}</option>
                             </select>
                         </div>
@@ -62,29 +61,29 @@
                         </div>
                         <div class="col-md-1 ps-3 text-center" *ngFor="let i of quantity_slab | slice:0:12">
                             <label for="inputName5" class="form-label fw-bold ">{{i.qty}}</label>
-                            <input type="text" (keyup)="onKeyUpSlab(i)" [(ngModel)]="i.realvalue" class="form-control bg-light" name="{{i.qty}}"  >
+                            <input placeholder="Enter" type="text" (keyup)="onKeyUpSlab(i)" [(ngModel)]="i.realvalue" class="form-control bg-light" name="{{i.qty}}"  >
                         </div>
                     </div>
                     
                     <div class="row g-2 mt-4 mb-4">
                         <div class="col-md-12">
                             <label for="inputName5" class="form-label fw-bold">Select Available Branding Methods</label>
-                            <input type="text"  class="form-select bg-light" placeholer="Enter Branding  Method Tags" >
+                            <input type="text"  class="form-select bg-light" placeholder="Enter Branding  Method Tags" >
                         </div>
                     </div>
 
                     <div class="row g-2 mt-4 mb-4">
                         <div class="col-md-4">
                             <label for="inputName5" class="form-label fw-bold">Website Branding 1</label>
-                            <input type="text"  class="form-select bg-light" placeholer="Enter" >
+                            <input type="text"  class="form-select bg-light" placeholder="Enter" >
                         </div>
                         <div class="col-md-4">
                             <label for="inputName5" class="form-label fw-bold">Website Branding 2</label>
-                            <input type="text"  class="form-select bg-light" placeholer="Enter" >
+                            <input type="text"  class="form-select bg-light" placeholder="Enter" >
                         </div>
                         <div class="col-md-4">
                             <label for="inputName5" class="form-label fw-bold">Website Branding 3</label>
-                            <input type="text"  class="form-select bg-light" placeholer="Enter" >
+                            <input type="text"  class="form-select bg-light" placeholder="Enter" >
                         </div>
                     </div>
 
@@ -100,7 +99,7 @@
                     <div class="row g-2 mt-4 mb-4">
                         <div class="col-md-4">
                             <label for="inputName5" class="form-label fw-bold">Minimum Web Quantity</label>
-                            <input type="text"  class="form-control bg-light" placeholer="Enter minimum web quantity" [(ngModel)]="min_qty" name="min_qty">
+                            <input type="text"  class="form-control bg-light" placeholder="Enter minimum web quantity" [(ngModel)]="min_qty" name="min_qty">
                         </div>
                     </div>
 
@@ -109,7 +108,7 @@
                         </div>
                         <div class="col-md-1 ps-3 text-center" *ngFor="let i of web_qty">
                             <label for="inputName5" class="form-label fw-bold ">{{i.qty}}</label>
-                            <input type="text" [(ngModel)]="i.realvalue" class="form-control bg-light" name="web_qty{{i.qty}}"  >
+                            <input placeholder="Enter" type="text" [(ngModel)]="i.realvalue" class="form-control bg-light" name="web_qty{{i.qty}}"  >
                         </div>
                     </div>
 
@@ -139,7 +138,7 @@
             </div>
             <div class="modal-body">
 
-                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                <table #myDatatable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                 class="table table-borderless datatable table-striped table-hover">
                 <thead>
                     <tr>

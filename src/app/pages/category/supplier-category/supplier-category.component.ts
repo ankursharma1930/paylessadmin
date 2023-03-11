@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy, } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import {AfterViewInit, Component, OnInit, Input, OnChanges, SimpleChanges, OnDestroy,ViewChild } from '@angular/core';
+import { FormBuilder, NgForm } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import { MessageService } from 'primeng/api';
-import { first, Subject, Subscription } from 'rxjs';
+import {Subject, Subscription } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import { Brands, AllPriceBreak, QuantitySlab, DELETE_CATEGORY_SUPPLIER, GET_CATEGORY_SUPPLIER, GET_CATEGORY_SUPPLIER_BYID, GET_CATEGORY, GET_FILTER_SUPPLIERS, CREATE_CATEGORY_SUPPLIER, UPDATE_CATEGORY_SUPPLIER } from './supplier-category-variables';
 
 
@@ -20,7 +21,9 @@ declare var window: any;
   templateUrl: './supplier-category.component.html',
   styleUrls: ['./supplier-category.component.css']
 })
-export class SupplierCategoryComponent implements OnChanges, OnDestroy {
+export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnInit, OnDestroy {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
   @Input() catId: any;
   supplierModal: any;
   dtOptions: DataTables.Settings = {};
@@ -47,8 +50,15 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
   private querySubscription: Subscription | undefined
 
   constructor(private apollo: Apollo, private messageService: MessageService, private fb: FormBuilder) { }
-
-
+  ngOnInit(): void { 
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10
+    };
+   }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next(null);
+  }
   ngOnChanges(changes: SimpleChanges): void {
     this.savedSuppliers = [];
     this.supplier = [];
@@ -56,11 +66,9 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
       this.supplierModal = new window.bootstrap.Modal(
         document.getElementById('supplierModal')
       );
-
-      this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 10
-      };
+      
+      this.rerender()
+      
       //Fetch category name
       this.apollo
         .watchQuery<any>({
@@ -83,6 +91,9 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
   //This function is for to fetch the all supplier inpopup
 
   fetchSupplier() {
+    this.rerender()
+    this.supplierCompleteData = [];
+    
     this.apollo
       .watchQuery<any>({
         query: GET_CATEGORY_SUPPLIER,
@@ -112,7 +123,8 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
             })
             .valueChanges.subscribe(({ data, loading }) => {
               this.supplierCompleteData = data.fsuppliers;
-              this.dtTrigger.next(null);
+              this.rerender()
+             
             }, error => {
               this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Supplier data!' });
             })
@@ -122,7 +134,7 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
             .watchQuery<any>({
               query: GET_FILTER_SUPPLIERS,
               variables: {
-                excludedIds: this.savedSuppliers
+                excludedIds: []
               },
               fetchPolicy: 'no-cache',
               errorPolicy: 'ignore'
@@ -130,11 +142,12 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
             .valueChanges.subscribe(({ data, loading }) => {
 
               this.supplierCompleteData = data.fsuppliers;
-              this.dtTrigger.next(null);
+              this.rerender()
             }, error => {
               this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Supplier data!' });
             })
         }
+        
         this.supplierModal.show();
       },
         error => {
@@ -145,6 +158,15 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
 
   }
 
+  //Here datatable got rerender, distroy the old one and create a new one
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next(null);
+    });
+  }
   //This function is to create a new supplier from tab
 
   addSupplier(event: any, id: any) {
@@ -164,6 +186,13 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
       .subscribe((result: any) => {
         this.messageService.clear();
         if (result.data?.createCategorySupplier) {
+          if(this.supplierCompleteData.length){
+            let index = this.supplierCompleteData.findIndex((obj: { id: any; }) => obj.id === id);
+            if(index !==-1){
+              this.supplierCompleteData.splice(index,1);
+              this.rerender();
+            }
+          }
           this.messageService.add({ severity: 'success', summary: 'yahooo!', detail: 'Supplier Added' });
           this.getSupplier();
         }
@@ -209,10 +238,7 @@ export class SupplierCategoryComponent implements OnChanges, OnDestroy {
 
 
   onSubmit(f: NgForm) {
-    // console.log(typeof JSON.stringify(this.quantity_slab));
     this.lead_time = { first: this.first_lead, second: this.sec_lead, third: this.third_lead, forth: this.forth_lead }
-    
-    
     this.apollo
       .mutate({
         mutation: UPDATE_CATEGORY_SUPPLIER,
