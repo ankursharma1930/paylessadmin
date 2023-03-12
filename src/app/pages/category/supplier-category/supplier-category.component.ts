@@ -93,7 +93,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
   fetchSupplier() {
     this.rerender()
     this.supplierCompleteData = [];
-    
+    this.messageService.add({ severity: 'info', detail: 'Please Wait, we are fetching suppliers!',sticky: true });
     this.apollo
       .watchQuery<any>({
         query: GET_CATEGORY_SUPPLIER,
@@ -124,7 +124,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
             .valueChanges.subscribe(({ data, loading }) => {
               this.supplierCompleteData = data.fsuppliers;
               this.rerender()
-             
+              this.messageService.clear();
             }, error => {
               this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Supplier data!' });
             })
@@ -143,6 +143,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
 
               this.supplierCompleteData = data.fsuppliers;
               this.rerender()
+              this.messageService.clear();
             }, error => {
               this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Supplier data!' });
             })
@@ -170,6 +171,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
   //This function is to create a new supplier from tab
 
   addSupplier(event: any, id: any) {
+    this.messageService.add({ severity: 'info', summary: 'Adding', detail: 'Its in-progress...' });
     this.apollo
       .mutate({
         mutation: CREATE_CATEGORY_SUPPLIER,
@@ -193,6 +195,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
               this.rerender();
             }
           }
+          this.messageService.clear();
           this.messageService.add({ severity: 'success', summary: 'yahooo!', detail: 'Supplier Added' });
           this.getSupplier();
         }
@@ -226,7 +229,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
       },
         error => {
           this.messageService.clear();
-          this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Filter data!' });
+          this.messageService.add({ severity: 'error', detail: 'Not Able to fetch the Supplier data!' });
         }
       )
   }
@@ -239,6 +242,7 @@ export class SupplierCategoryComponent implements AfterViewInit, OnChanges, OnIn
 
   onSubmit(f: NgForm) {
     this.lead_time = { first: this.first_lead, second: this.sec_lead, third: this.third_lead, forth: this.forth_lead }
+    this.messageService.add({ severity: 'info', detail: 'Updating...' });
     this.apollo
       .mutate({
         mutation: UPDATE_CATEGORY_SUPPLIER,

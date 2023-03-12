@@ -15,6 +15,7 @@
             <button (click)="fetchCategorySupplierData(supplier.id)" class="accordion-button collapsed" type="button" [attr.data-bs-toggle]="'collapse'" [attr.data-bs-target]="'#collapseOne'+supplier.supplier.id" aria-expanded="false" [attr.aria-controls]="'collapseOne'+supplier.supplier.id">
                 {{supplier.supplier.name}}
             </button>
+            <span class="p-2 text-muted remove-supplier" (click)="removeSupplier(supplier.id)"><i class="bi bi-trash-fill"></i></span>
           </h2>
           <div id="collapseOne{{supplier.supplier.id}}" class="accordion-collapse collapse" [attr.aria-labelledby] ="'headingOne'+supplier.supplier.id" data-bs-parent="#accordionExample">
             <div class="accordion-body">

@@ -1,1 +1,12 @@
 .supplier_tag{margin-bottom: -20px;}
+.remove-supplier{
+    float: right;
+    position: relative;
+    top: -34px;
+    right: 52px;
+    z-index: 9;
+    cursor: pointer;
+    font-size: 15px;
+    padding: 0 !important;
+    margin: 0;
+}
